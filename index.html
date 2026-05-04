@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Calendário Editorial — São Vicente</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg0:#0b0e14;--bg1:#12161f;--bg2:#1a1f2e;--bg3:#222840;--bg4:#2a3250;
+  --border:#1e2535;--border2:#2e3a55;--border3:#3d4e70;
+  --text1:#dce6f5;--text2:#7a8faf;--text3:#3d4e68;
+  --orange:#F5A800;--orange2:#d49000;--orange-bg:rgba(245,168,0,.08);--orange-border:rgba(245,168,0,.2);
+  --green:#1A7A2A;--green2:#22c55e;
+  --ig:#f472b6;--ig-bg:rgba(244,114,182,.08);--ig-border:rgba(244,114,182,.25);
+  --fb:#60a5fa;--fb-bg:rgba(96,165,250,.08);--fb-border:rgba(96,165,250,.25);
+  --amb:#c084fc;--amb-bg:rgba(192,132,252,.08);--amb-border:rgba(192,132,252,.25);
+  --ev:#34d399;--ev-bg:rgba(52,211,153,.08);--ev-border:rgba(52,211,153,.25);
+  --font:'DM Sans',sans-serif;--mono:'DM Mono',monospace;
+}
+html,body{height:100%;background:var(--bg0);color:var(--text1);font-family:var(--font);font-size:13px;line-height:1.5;overflow:hidden}
+.app{display:flex;height:100vh}
+.sidebar{width:200px;min-width:200px;background:var(--bg1);border-right:1px solid var(--border);display:flex;flex-direction:column}
+.logo-wrap{padding:16px 14px 12px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px}
+.logo-icon{width:30px;height:30px;background:var(--green);border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:#fff;flex-shrink:0}
+.logo-text{font-size:13px;font-weight:600;color:var(--text1);line-height:1.2}
+.logo-sub{font-size:10px;color:var(--text2)}
+.sidebar-tabs{display:flex;margin:8px 10px;background:var(--bg2);border-radius:7px;border:1px solid var(--border);padding:2px;gap:2px}
+.stab{flex:1;text-align:center;padding:4px;font-size:10px;border-radius:5px;cursor:pointer;color:var(--text2)}
+.stab.active{background:var(--bg4);color:var(--text1);font-weight:500}
+.nav{flex:1;padding:4px 0;overflow-y:auto}
+.nav-item{display:flex;align-items:center;gap:8px;padding:6px 12px;cursor:pointer;color:var(--text2);font-size:11px;border-left:2px solid transparent}
+.nav-item:hover{color:var(--text1);background:var(--bg2)}
+.nav-item.active{color:var(--text1);background:var(--bg2);border-left-color:var(--orange)}
+.nav-icon{width:13px;height:13px;flex-shrink:0;opacity:.8}
+.nav-badge{margin-left:auto;background:var(--orange);color:#1a0e00;font-size:9px;font-weight:700;padding:1px 5px;border-radius:8px;font-family:var(--mono)}
+.sec-heading{padding:8px 12px 2px;font-size:9px;color:var(--text3);text-transform:uppercase;letter-spacing:.1em;font-weight:500}
+.sec-item{display:flex;align-items:center;gap:7px;padding:3px 12px 3px 16px;color:var(--text2);font-size:10px}
+.sec-dot{width:5px;height:5px;border-radius:50%;flex-shrink:0}
+.sidebar-foot{padding:10px;border-top:1px solid var(--border);display:flex;flex-direction:column;gap:5px}
+.new-btn{width:100%;padding:8px;background:var(--orange);color:#1a0e00;border:none;border-radius:7px;font-size:11px;font-weight:600;cursor:pointer;font-family:var(--font)}
+.new-btn:hover{background:var(--orange2)}
+.reset-btn{width:100%;padding:5px;background:transparent;border:1px solid var(--border2);border-radius:7px;font-size:10px;color:var(--text3);cursor:pointer;font-family:var(--font)}
+.reset-btn:hover{color:var(--text2)}
+.main{flex:1;display:flex;flex-direction:column;overflow:hidden}
+.topbar{display:flex;align-items:center;gap:8px;padding:9px 16px;border-bottom:1px solid var(--border);background:var(--bg1);flex-wrap:wrap}
+.topbar-info{flex:1}
+.topbar-title{font-size:13px;font-weight:600;color:var(--text1)}
+.topbar-sub{font-size:10px;color:var(--text2)}
+.tb-filters{display:flex;gap:3px}
+.cfchip{padding:4px 10px;border-radius:16px;border:1px solid var(--border2);background:transparent;color:var(--text2);font-size:10px;cursor:pointer;font-family:var(--font)}
+.cfchip:hover{color:var(--text1)}
+.cfchip.active-all{border-color:var(--orange-border);color:var(--orange);background:var(--orange-bg)}
+.cfchip.active-ig{border-color:var(--ig-border);color:var(--ig);background:var(--ig-bg)}
+.cfchip.active-fb{border-color:var(--fb-border);color:var(--fb);background:var(--fb-bg)}
+.cfchip.active-evento{border-color:var(--ev-border);color:var(--ev);background:var(--ev-bg)}
+.nav-month{display:flex;align-items:center;gap:5px}
+.mnav{background:var(--bg2);border:1px solid var(--border2);border-radius:5px;color:var(--text2);padding:3px 9px;cursor:pointer;font-size:13px}
+.mnav:hover{color:var(--text1)}
+.mlabel{font-size:11px;color:var(--text2);font-family:var(--mono);min-width:96px;text-align:center}
+.view-sw{display:flex;background:var(--bg2);border:1px solid var(--border);border-radius:6px;overflow:hidden}
+.vbtn{padding:4px 11px;font-size:10px;cursor:pointer;background:transparent;border:none;color:var(--text2);font-family:var(--font)}
+.vbtn.active{background:var(--bg4);color:var(--text1)}
+.add-btn{padding:5px 12px;background:var(--orange);color:#1a0e00;border:none;border-radius:6px;font-size:11px;font-weight:600;cursor:pointer;font-family:var(--font)}
+.add-btn:hover{background:var(--orange2)}
+.content{flex:1;overflow-y:auto;padding:12px 16px;display:flex;flex-direction:column;gap:10px}
+.content::-webkit-scrollbar{width:3px}
+.content::-webkit-scrollbar-thumb{background:var(--bg4);border-radius:2px}
+.stats-row{display:grid;grid-template-columns:repeat(5,1fr);gap:7px}
+.stat-card{background:var(--bg1);border:1px solid var(--border);border-radius:9px;padding:10px 12px}
+.stat-lbl{font-size:9px;color:var(--text2);text-transform:uppercase;letter-spacing:.06em;margin-bottom:5px;font-weight:500}
+.stat-val{font-size:24px;font-weight:600;color:var(--text1);font-family:var(--mono);line-height:1}
+.stat-tag{font-size:9px;margin-top:4px;display:flex;align-items:center;gap:3px;color:var(--text2)}
+.tag-dot{width:5px;height:5px;border-radius:50%;display:inline-block;flex-shrink:0}
+.grid2{display:grid;grid-template-columns:1fr 256px;gap:10px}
+.cal-wrap{background:var(--bg1);border:1px solid var(--border);border-radius:11px;padding:12px}
+.cal-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;flex-wrap:wrap;gap:6px}
+.cal-head-title{font-size:11px;font-weight:500;color:var(--text1)}
+.legend{display:flex;gap:8px;flex-wrap:wrap}
+.leg{display:flex;align-items:center;gap:3px;font-size:9px;color:var(--text2)}
+.leg-dot{width:7px;height:7px;border-radius:2px;flex-shrink:0}
+.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:2px}
+.cal-dh{font-size:8px;color:var(--text3);text-align:center;padding:3px 0;text-transform:uppercase;letter-spacing:.04em;font-weight:500}
+.cal-day{min-height:64px;border-radius:6px;border:1px solid var(--border);background:var(--bg2);padding:4px;cursor:pointer}
+.cal-day:hover{border-color:var(--border3);background:var(--bg3)}
+.cal-day.empty{background:transparent;border-color:transparent;cursor:default}
+.cal-day.today{border-color:var(--orange);border-width:1.5px}
+.dn{font-size:9px;color:var(--text2);margin-bottom:2px;font-weight:500;font-family:var(--mono)}
+.dn.tn{background:var(--orange);color:#1a0e00;border-radius:50%;width:15px;height:15px;display:flex;align-items:center;justify-content:center;font-size:8px;font-weight:700}
+.pdot{font-size:8px;padding:1px 3px;border-radius:2px;margin-bottom:1px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;cursor:pointer;line-height:1.3;border:1px solid transparent}
+.pdot.ig{background:var(--ig-bg);color:var(--ig);border-color:var(--ig-border)}
+.pdot.fb{background:var(--fb-bg);color:var(--fb);border-color:var(--fb-border)}
+.pdot.ambos{background:var(--amb-bg);color:var(--amb);border-color:var(--amb-border)}
+.pdot.evento{background:var(--ev-bg);color:var(--ev);border-color:var(--ev-border)}
+.more{font-size:8px;color:var(--text3);margin-top:1px;font-family:var(--mono)}
+.side{display:flex;flex-direction:column;gap:8px}
+.panel{background:var(--bg1);border:1px solid var(--border);border-radius:11px;padding:12px}
+.panel-title{font-size:10px;font-weight:500;color:var(--text1);margin-bottom:8px;text-transform:uppercase;letter-spacing:.06em}
+.up-item{display:flex;gap:8px;align-items:flex-start;padding:6px 0;border-bottom:1px solid var(--border)}
+.up-item:last-child{border-bottom:none;padding-bottom:0}
+.up-date{min-width:30px;text-align:center;background:var(--bg2);border:1px solid var(--border2);border-radius:5px;padding:3px 2px}
+.ud{font-size:13px;font-weight:600;color:var(--text1);line-height:1;font-family:var(--mono)}
+.um{font-size:8px;color:var(--text2);text-transform:uppercase}
+.up-body{flex:1;min-width:0}
+.up-title{font-size:10px;font-weight:500;color:var(--text1);overflow:hidden;white-space:nowrap;text-overflow:ellipsis;margin-bottom:2px}
+.up-tags{display:flex;gap:3px;flex-wrap:wrap}
+.utag{font-size:8px;padding:1px 5px;border-radius:7px;font-weight:500}
+.utag.ig{background:var(--ig-bg);color:var(--ig);border:1px solid var(--ig-border)}
+.utag.fb{background:var(--fb-bg);color:var(--fb);border:1px solid var(--fb-border)}
+.utag.ambos{background:var(--amb-bg);color:var(--amb);border:1px solid var(--amb-border)}
+.utag.evento{background:var(--ev-bg);color:var(--ev);border:1px solid var(--ev-border)}
+.utag.sec{background:var(--bg3);color:var(--text2);border:1px solid var(--border2)}
+.sec-row{display:flex;align-items:center;gap:7px;margin-bottom:6px}
+.sec-row:last-child{margin-bottom:0}
+.sn{font-size:9px;color:var(--text2);min-width:60px;font-weight:500}
+.bar-wrap{flex:1;height:3px;background:var(--bg3);border-radius:2px;overflow:hidden}
+.bar-fill{height:100%;border-radius:2px}
+.sc{font-size:9px;color:var(--text1);font-family:var(--mono);min-width:12px;text-align:right;font-weight:500}
+.list-view{display:none;flex-direction:column;gap:5px}
+.list-card{background:var(--bg1);border:1px solid var(--border);border-radius:9px;padding:10px 13px;display:flex;gap:10px;align-items:flex-start;cursor:pointer}
+.list-card:hover{border-color:var(--border3)}
+.ldate{min-width:36px;text-align:center;background:var(--bg2);border:1px solid var(--border2);border-radius:6px;padding:4px 2px;flex-shrink:0}
+.ld{font-size:16px;font-weight:600;color:var(--text1);line-height:1;font-family:var(--mono)}
+.lm{font-size:8px;color:var(--text2);text-transform:uppercase}
+.ldow{font-size:8px;color:var(--orange);font-weight:500;margin-top:1px}
+.lbody{flex:1;min-width:0}
+.ltitle{font-size:12px;font-weight:500;color:var(--text1);margin-bottom:3px}
+.lmeta{display:flex;gap:3px;flex-wrap:wrap;margin-bottom:3px}
+.lcopy{font-size:10px;color:var(--text2);overflow:hidden;display:-webkit-box;-webkit-line-clamp:1;-webkit-box-orient:vertical}
+.lbar{width:3px;border-radius:2px;min-width:3px;align-self:stretch}
+.tipo-dc{font-size:8px;padding:1px 5px;border-radius:7px;background:rgba(251,191,36,.08);color:#fbbf24;border:1px solid rgba(251,191,36,.2)}
+.tipo-ev{font-size:8px;padding:1px 5px;border-radius:7px;background:var(--ev-bg);color:var(--ev);border:1px solid var(--ev-border)}
+.modal-bg{display:none;position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:300;align-items:center;justify-content:center}
+.modal-bg.open{display:flex}
+.modal{background:var(--bg1);border:1px solid var(--border2);border-radius:13px;padding:18px;width:min(500px,95vw);max-height:92vh;overflow-y:auto}
+.modal-h{font-size:13px;font-weight:600;color:var(--text1);margin-bottom:12px;padding-bottom:10px;border-bottom:1px solid var(--border)}
+.field{margin-bottom:9px}
+.field label{font-size:9px;color:var(--text2);display:block;margin-bottom:3px;font-weight:500;text-transform:uppercase;letter-spacing:.06em}
+.field input,.field select,.field textarea{width:100%;font-size:12px;padding:7px 9px;border-radius:6px;border:1px solid var(--border2);background:var(--bg2);color:var(--text1);outline:none;font-family:var(--font)}
+.field input:focus,.field textarea:focus{border-color:var(--orange)}
+.field select option{background:var(--bg2)}
+.field textarea{resize:vertical;min-height:60px}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.row3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
+.canal-toggle{display:flex;gap:4px;flex-wrap:wrap}
+.ctog{flex:1;min-width:60px;padding:6px 3px;border-radius:6px;border:1px solid var(--border2);background:var(--bg2);color:var(--text2);font-size:10px;cursor:pointer;text-align:center;font-family:var(--font)}
+.ctog:hover{color:var(--text1)}
+.ctog.active-ig{border-color:var(--ig-border);color:var(--ig);background:var(--ig-bg)}
+.ctog.active-fb{border-color:var(--fb-border);color:var(--fb);background:var(--fb-bg)}
+.ctog.active-ambos{border-color:var(--amb-border);color:var(--amb);background:var(--amb-bg)}
+.ctog.active-evento{border-color:var(--ev-border);color:var(--ev);background:var(--ev-bg)}
+.mfooter{display:flex;justify-content:flex-end;gap:5px;margin-top:12px;padding-top:10px;border-top:1px solid var(--border)}
+.mbtn{padding:6px 14px;border-radius:6px;border:1px solid var(--border2);background:transparent;color:var(--text2);font-size:11px;cursor:pointer;font-family:var(--font)}
+.mbtn:hover{color:var(--text1);background:var(--bg2)}
+.mbtn.save{background:var(--orange);color:#1a0e00;border-color:var(--orange);font-weight:600}
+.mbtn.save:hover{background:var(--orange2)}
+.mbtn.del{background:rgba(239,68,68,.08);color:#f87171;border-color:rgba(239,68,68,.2)}
+.dow-badge{display:inline-block;font-size:9px;padding:1px 6px;border-radius:5px;background:var(--orange-bg);color:var(--orange);border:1px solid var(--orange-border);font-weight:500;margin-left:6px;font-family:var(--mono)}
+</style>
+</head>
+<body>
+<div class="app">
+
+<div class="sidebar">
+  <div class="logo-wrap">
+    <div class="logo-icon">SV</div>
+    <div>
+      <div class="logo-text">São Vicente</div>
+      <div class="logo-sub">Comunicação Digital</div>
+    </div>
+  </div>
+  <div class="sidebar-tabs">
+    <div class="stab active">Social</div>
+    <div class="stab">Eventos</div>
+  </div>
+  <div class="nav">
+    <div class="nav-item active" onclick="setView('cal')">
+      <svg class="nav-icon" viewBox="0 0 15 15" fill="none"><rect x="1.5" y="1.5" width="5" height="5" rx="1" stroke="currentColor" stroke-width="1.3"/><rect x="8.5" y="1.5" width="5" height="5" rx="1" stroke="currentColor" stroke-width="1.3"/><rect x="1.5" y="8.5" width="5" height="5" rx="1" stroke="currentColor" stroke-width="1.3"/><rect x="8.5" y="8.5" width="5" height="5" rx="1" stroke="currentColor" stroke-width="1.3"/></svg>
+      Dashboard
+    </div>
+    <div class="nav-item" onclick="setView('list')">
+      <svg class="nav-icon" viewBox="0 0 15 15" fill="none"><path d="M2 3.5h11M2 7.5h11M2 11.5h11" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
+      Pautas
+      <span class="nav-badge" id="badge-count">0</span>
+    </div>
+    <div class="sec-heading">Secretarias</div>
+    <div class="sec-item"><span class="sec-dot" style="background:#34d399"></span>SEDUC</div>
+    <div class="sec-item"><span class="sec-dot" style="background:#fbbf24"></span>SESAU</div>
+    <div class="sec-item"><span class="sec-dot" style="background:#60a5fa"></span>SESPOR</div>
+    <div class="sec-item"><span class="sec-dot" style="background:#f87171"></span>SEDHC</div>
+    <div class="sec-item"><span class="sec-dot" style="background:#f472b6"></span>FSS</div>
+    <div class="sec-item"><span class="sec-dot" style="background:#38bdf8"></span>DF</div>
+    <div class="sec-item"><span class="sec-dot" style="background:#a3e635"></span>SETRE</div>
+    <div class="sec-item"><span class="sec-dot" style="background:#22c55e"></span>SEMAM</div>
+    <div class="sec-item"><span class="sec-dot" style="background:#a78bfa"></span>SEMOB</div>
+    <div class="sec-item"><span class="sec-dot" style="background:#94a3b8"></span>SESP</div>
+    <div class="sec-item"><span class="sec-dot" style="background:#fb923c"></span>SETUR</div>
+    <div class="sec-item"><span class="sec-dot" style="background:#e879f9"></span>SECULT</div>
+    <div class="sec-item"><span class="sec-dot" style="background:#6ee7b7"></span>SEPLAG</div>
+    <div class="sec-item"><span class="sec-dot" style="background:#fcd34d"></span>SEFAZ</div>
+    <div class="sec-item"><span class="sec-dot" style="background:#f9a8d4"></span>SEDES</div>
+    <div class="sec-item"><span class="sec-dot" style="background:#86efac"></span>SEBEM</div>
+    <div class="sec-item"><span class="sec-dot" style="background:#7dd3fc"></span>SUPAC</div>
+    <div class="sec-item"><span class="sec-dot" style="background:#fdba74"></span>SECINP</div>
+    <div class="sec-item"><span class="sec-dot" style="background:#F5A800"></span>Comunicação</div>
+    <div class="sec-item"><span class="sec-dot" style="background:#c084fc"></span>Múltiplas</div>
+  </div>
+  <div class="sidebar-foot">
+    <button class="new-btn" onclick="openModal()">+ Nova pauta</button>
+    <button class="reset-btn" onclick="resetData()">↺ Restaurar dados originais</button>
+  </div>
+</div>
+
+<div class="main">
+  <div class="topbar">
+    <div class="topbar-info">
+      <div class="topbar-title" id="topbar-title">Dashboard — Maio 2026</div>
+      <div class="topbar-sub">Prefeitura de São Vicente · Calendário Editorial</div>
+    </div>
+    <div class="tb-filters">
+      <button class="cfchip active-all" onclick="setChannel('all',this)">Todos</button>
+      <button class="cfchip" onclick="setChannel('ig',this)">Instagram</button>
+      <button class="cfchip" onclick="setChannel('fb',this)">Facebook</button>
+      <button class="cfchip" onclick="setChannel('evento',this)">Eventos</button>
+    </div>
+    <div class="nav-month">
+      <button class="mnav" onclick="prevMonth()">&#8249;</button>
+      <span class="mlabel" id="month-lbl"></span>
+      <button class="mnav" onclick="nextMonth()">&#8250;</button>
+    </div>
+    <div class="view-sw">
+      <button class="vbtn active" id="vbtn-cal" onclick="setView('cal')">Calendário</button>
+      <button class="vbtn" id="vbtn-list" onclick="setView('list')">Lista</button>
+    </div>
+    <button class="add-btn" onclick="openModal()">+ Nova pauta</button>
+  </div>
+
+  <div class="content">
+    <div class="stats-row">
+      <div class="stat-card">
+        <div class="stat-lbl">Total no mês</div>
+        <div class="stat-val" id="st-total">0</div>
+        <div class="stat-tag"><span class="tag-dot" style="background:var(--orange)"></span>pautas + eventos</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-lbl">Datas comemorativas</div>
+        <div class="stat-val" id="st-dc">0</div>
+        <div class="stat-tag"><span class="tag-dot" style="background:#fbbf24"></span>editorial</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-lbl">Eventos</div>
+        <div class="stat-val" id="st-ev">0</div>
+        <div class="stat-tag"><span class="tag-dot" style="background:var(--ev)"></span>operacional</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-lbl">Instagram</div>
+        <div class="stat-val" id="st-ig">0</div>
+        <div class="stat-tag"><span class="tag-dot" style="background:var(--ig)"></span>posts</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-lbl">Facebook</div>
+        <div class="stat-val" id="st-fb">0</div>
+        <div class="stat-tag"><span class="tag-dot" style="background:var(--fb)"></span>posts</div>
+      </div>
+    </div>
+
+    <div class="grid2" id="main-grid">
+      <div class="cal-wrap" id="view-cal">
+        <div class="cal-head">
+          <div class="cal-head-title">Calendário editorial</div>
+          <div class="legend">
+            <div class="leg"><div class="leg-dot" style="background:var(--ig-bg);border:1px solid var(--ig-border)"></div>IG</div>
+            <div class="leg"><div class="leg-dot" style="background:var(--fb-bg);border:1px solid var(--fb-border)"></div>FB</div>
+            <div class="leg"><div class="leg-dot" style="background:var(--amb-bg);border:1px solid var(--amb-border)"></div>Ambos</div>
+            <div class="leg"><div class="leg-dot" style="background:var(--ev-bg);border:1px solid var(--ev-border)"></div>Evento</div>
+            <div class="leg"><div class="leg-dot" style="border:1.5px solid var(--orange);background:transparent"></div>Hoje</div>
+          </div>
+        </div>
+        <div class="cal-grid" id="cal-grid"></div>
+      </div>
+      <div class="side">
+        <div class="panel">
+          <div class="panel-title">Próximas pautas</div>
+          <div id="upcoming"></div>
+        </div>
+        <div class="panel">
+          <div class="panel-title">Por secretaria</div>
+          <div id="sec-chart"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="list-view" id="view-list"></div>
+  </div>
+</div>
+</div>
+
+<!-- MODAL -->
+<div class="modal-bg" id="modal-bg" onclick="closeBg(event)">
+<div class="modal">
+  <div class="modal-h" id="modal-h">Nova pauta</div>
+  <div class="field"><label>Título / Assunto</label><input id="f-titulo" type="text" placeholder="Ex: Dia das Mães — homenagem"/></div>
+  <div class="row3">
+    <div class="field"><label>Data</label><input id="f-data" type="date" oninput="updateDow()"/></div>
+    <div class="field"><label>Dia da Semana</label><input id="f-dow" type="text" readonly style="color:var(--orange);cursor:default" placeholder="auto"/></div>
+    <div class="field"><label>Horário</label><input id="f-hora" type="time" value="09:00"/></div>
+  </div>
+  <div class="field"><label>Tipo / Canal</label>
+    <div class="canal-toggle">
+      <div class="ctog" id="ct-ig" onclick="selCan('ig')">Instagram</div>
+      <div class="ctog" id="ct-fb" onclick="selCan('fb')">Facebook</div>
+      <div class="ctog" id="ct-ambos" onclick="selCan('ambos')">Ambos</div>
+      <div class="ctog" id="ct-evento" onclick="selCan('evento')">Evento</div>
+    </div>
+  </div>
+  <div class="row2">
+    <div class="field"><label>Secretaria</label>
+      <select id="f-sec">
+        <option>Comunicação</option>
+        <option>SEDUC</option><option>SESAU</option><option>SESPOR</option>
+        <option>SEDHC</option><option>FSS</option><option>DF</option>
+        <option>SETRE</option><option>SEMAM</option><option>SEMOB</option>
+        <option>SESP</option><option>SETUR</option><option>SECULT</option>
+        <option>SEPLAG</option><option>SEFAZ</option><option>SEDES</option>
+        <option>SEBEM</option><option>SUPAC</option><option>SECINP</option>
+        <option>Gabinete</option><option>Múltiplas</option>
+      </select>
+    </div>
+    <div class="field"><label>Responsável / Equipe</label>
+      <input id="f-equipe" type="text" placeholder="Ex: Rodrigo, Jornalismo, Foto"/>
+    </div>
+  </div>
+  <div class="field"><label>Legenda / Copy / Briefing</label><textarea id="f-copy" placeholder="Texto, briefing ou observações da pauta…"></textarea></div>
+  <div class="mfooter">
+    <button class="mbtn" onclick="closeModal()">Cancelar</button>
+    <button class="mbtn del" id="btn-del" onclick="delPost()" style="display:none">Excluir</button>
+    <button class="mbtn save" onclick="savePost()">Salvar pauta</button>
+  </div>
+</div>
+</div>
+
+<script>
+var MESES=["Janeiro","Fevereiro","Março","Abril","Maio","Junho","Julho","Agosto","Setembro","Outubro","Novembro","Dezembro"];
+var M3=["Jan","Fev","Mar","Abr","Mai","Jun","Jul","Ago","Set","Out","Nov","Dez"];
+var DIAS_FULL=["Domingo","Segunda","Terça","Quarta","Quinta","Sexta","Sábado"];
+var DIAS_SHORT=["Dom","Seg","Ter","Qua","Qui","Sex","Sáb"];
+var STORAGE_KEY='sv_posts_v2';
+var STORAGE_NID='sv_nid_v2';
+
+var SCOL={
+  SEDUC:"#34d399",SESAU:"#fbbf24",SESPOR:"#60a5fa",SEDHC:"#f87171",
+  FSS:"#f472b6",DF:"#38bdf8",SETRE:"#a3e635",SEMAM:"#22c55e",
+  SEMOB:"#a78bfa",SESP:"#94a3b8",SETUR:"#fb923c",SECULT:"#e879f9",
+  SEPLAG:"#6ee7b7",SEFAZ:"#fcd34d",SEDES:"#f9a8d4",SEBEM:"#86efac",
+  SUPAC:"#7dd3fc",SECINP:"#fdba74","Comunicação":"#F5A800",
+  Gabinete:"#cbd5e1",Múltiplas:"#c084fc"
+};
+
+function dow(dateStr){
+  if(!dateStr)return'';
+  var p=dateStr.split('-');
+  var d=new Date(parseInt(p[0]),parseInt(p[1])-1,parseInt(p[2]));
+  return DIAS_FULL[d.getDay()];
+}
+function dowShort(dateStr){
+  if(!dateStr)return'';
+  var p=dateStr.split('-');
+  var d=new Date(parseInt(p[0]),parseInt(p[1])-1,parseInt(p[2]));
+  return DIAS_SHORT[d.getDay()];
+}
+function updateDow(){
+  var v=document.getElementById('f-data').value;
+  document.getElementById('f-dow').value=dow(v);
+}
+
+var DEFAULT_POSTS=[
+  {id:1,titulo:"Corrida Maria dos Remédios",data:"2026-05-01",hora:"06:00",canal:"evento",sec:"SETUR",equipe:"",copy:"Corrida 6h–9h30. Cobertura fotográfica + stories ao vivo."},
+  {id:2,titulo:"Carreata de Ogum",data:"2026-05-01",hora:"09:00",canal:"evento",sec:"SECULT",equipe:"",copy:"Carreata 9h–20h. Registro cultural."},
+  {id:3,titulo:"Exposição Mães Atípicas",data:"2026-05-01",hora:"15:00",canal:"evento",sec:"SEDHC",equipe:"",copy:"Abertura da exposição 15h. Post de divulgação + cobertura."},
+  {id:4,titulo:"SV Hari",data:"2026-05-02",hora:"09:00",canal:"evento",sec:"SECULT",equipe:"",copy:"Evento cultural SV Hari. Cobertura e divulgação."},
+  {id:5,titulo:"Travessia Entre Ilhas",data:"2026-05-03",hora:"07:00",canal:"evento",sec:"SETUR",equipe:"",copy:"Travessia esportiva 7h–10h. Stories ao vivo."},
+  {id:6,titulo:"Entrevista Vacimóvel",data:"2026-05-04",hora:"10:15",canal:"evento",sec:"SESAU",equipe:"",copy:"Entrevista sobre o Vacimóvel 10h15. Capturar depoimentos."},
+  {id:7,titulo:"Café com Lídia",data:"2026-05-04",hora:"17:00",canal:"evento",sec:"Gabinete",equipe:"",copy:"Evento institucional 17h."},
+  {id:8,titulo:"Reunião Expo Cidadania",data:"2026-05-05",hora:"11:00",canal:"evento",sec:"Múltiplas",equipe:"",copy:"Reunião de alinhamento Expo Cidadania 11h."},
+  {id:9,titulo:"Inspeção Praça 22 de Janeiro",data:"2026-05-05",hora:"09:00",canal:"evento",sec:"SESP",equipe:"",copy:"Vistoria da praça. Registrar estado atual."},
+  {id:10,titulo:"Reunião Revista Nove",data:"2026-05-06",hora:"15:00",canal:"evento",sec:"Comunicação",equipe:"",copy:"Reunião pauta Revista Nove 15h."},
+  {id:11,titulo:"Inspeção Praça (continuação)",data:"2026-05-06",hora:"09:00",canal:"evento",sec:"SESP",equipe:"",copy:"Continuação da inspeção."},
+  {id:12,titulo:"Reinauguração ESF Saquaré",data:"2026-05-08",hora:"09:30",canal:"evento",sec:"SESAU",equipe:"",copy:"Reinauguração da Unidade de Saúde Saquaré 9h30. Cobertura completa."},
+  {id:13,titulo:"Dança Cigana",data:"2026-05-08",hora:"16:30",canal:"evento",sec:"SECULT",equipe:"",copy:"Apresentação cultural 16h30–18h."},
+  {id:14,titulo:"Residência Inclusiva",data:"2026-05-08",hora:"15:30",canal:"evento",sec:"SEDHC",equipe:"",copy:"Evento Residência Inclusiva 15h30."},
+  {id:15,titulo:"Simulado Defesa Civil",data:"2026-05-09",hora:"10:00",canal:"evento",sec:"DF",equipe:"",copy:"Simulado de emergência 10h. Cobertura e divulgação institucional."},
+  {id:16,titulo:"Ilha Encantada",data:"2026-05-09",hora:"11:00",canal:"evento",sec:"SECULT",equipe:"",copy:"Evento cultural Ilha Encantada 11h–15h."},
+  {id:17,titulo:"Corrida da Família",data:"2026-05-10",hora:"05:00",canal:"evento",sec:"SETUR",equipe:"",copy:"Corrida em homenagem ao Dia das Mães 5h–11h. Cobertura completa."},
+  {id:18,titulo:"Recicla SV",data:"2026-05-12",hora:"11:00",canal:"evento",sec:"SEMAM",equipe:"",copy:"Ação Recicla SV 11h. Registro e post sobre sustentabilidade."},
+  {id:19,titulo:"SEBRAE Móvel (dia 1)",data:"2026-05-12",hora:"10:00",canal:"evento",sec:"SETRE",equipe:"",copy:"SEBRAE Móvel 10h–16h. Divulgação nos canais."},
+  {id:20,titulo:"Curso Hambúrguer — Encerramento",data:"2026-05-13",hora:"09:00",canal:"evento",sec:"SEDUC",equipe:"",copy:"Encerramento do curso. Fotos dos formandos."},
+  {id:21,titulo:"SEBRAE Móvel (dia 2)",data:"2026-05-13",hora:"10:00",canal:"evento",sec:"SETRE",equipe:"",copy:"SEBRAE Móvel — segundo dia."},
+  {id:22,titulo:"SEBRAE Móvel (dia 3)",data:"2026-05-14",hora:"10:00",canal:"evento",sec:"SETRE",equipe:"",copy:"SEBRAE Móvel — terceiro dia."},
+  {id:23,titulo:"SEBRAE Móvel (dia 4)",data:"2026-05-15",hora:"10:00",canal:"evento",sec:"SETRE",equipe:"",copy:"SEBRAE Móvel — último dia."},
+  {id:24,titulo:"Open Beach Tennis (dia 1)",data:"2026-05-16",hora:"07:00",canal:"evento",sec:"SESPOR",equipe:"",copy:"Torneio de beach tennis 7h–18h. Cobertura esportiva."},
+  {id:25,titulo:"Vôlei de Praia",data:"2026-05-16",hora:"08:00",canal:"evento",sec:"SESPOR",equipe:"",copy:"Torneio de vôlei de praia 8h–18h."},
+  {id:26,titulo:"Praiô",data:"2026-05-16",hora:"14:00",canal:"evento",sec:"SECULT",equipe:"",copy:"Evento Praiô 14h–21h. Cobertura cultural."},
+  {id:27,titulo:"Open Beach Tennis (dia 2)",data:"2026-05-17",hora:"07:00",canal:"evento",sec:"SESPOR",equipe:"",copy:"Continuação do torneio de beach tennis."},
+  {id:28,titulo:"Reinauguração UBASA",data:"2026-05-19",hora:"09:30",canal:"evento",sec:"SESAU",equipe:"",copy:"Reinauguração da UBASA 9h30. Cobertura completa + release."},
+  {id:29,titulo:"Chá Dia das Mães",data:"2026-05-22",hora:"15:30",canal:"evento",sec:"FSS",equipe:"",copy:"Chá em homenagem ao Dia das Mães 15h30."},
+  {id:30,titulo:"Expo Cidadania (dia 1)",data:"2026-05-23",hora:"09:00",canal:"evento",sec:"Múltiplas",equipe:"",copy:"Expo Cidadania — primeiro dia. Cobertura completa."},
+  {id:31,titulo:"Expo Cidadania (dia 2)",data:"2026-05-24",hora:"09:00",canal:"evento",sec:"Múltiplas",equipe:"",copy:"Expo Cidadania — segundo dia."},
+  {id:32,titulo:"Curso Hambúrguer — Encerramento 2",data:"2026-05-27",hora:"09:00",canal:"evento",sec:"SEDUC",equipe:"",copy:"Segunda turma de encerramento do curso."},
+  {id:33,titulo:"Formatura de Cursos",data:"2026-05-28",hora:"14:00",canal:"evento",sec:"SEDUC",equipe:"",copy:"Formatura dos cursos municipais 14h. Cobertura e post de celebração."},
+  {id:34,titulo:"Expo Cidadania (dia 3)",data:"2026-05-30",hora:"09:00",canal:"evento",sec:"Múltiplas",equipe:"",copy:"Expo Cidadania — terceiro dia."},
+  {id:35,titulo:"Expo Cidadania (encerramento)",data:"2026-05-31",hora:"09:00",canal:"evento",sec:"Múltiplas",equipe:"",copy:"Expo Cidadania — encerramento. Post de balanço."},
+  {id:36,titulo:"Dia Mundial da Higiene das Mãos",data:"2026-05-05",hora:"08:00",canal:"ambos",sec:"SESAU",equipe:"",copy:"Importância de lavar as mãos. Campanha de conscientização."},
+  {id:37,titulo:"Luta Contra a Endometriose",data:"2026-05-07",hora:"09:00",canal:"ambos",sec:"SESAU",equipe:"",copy:"Conscientização sobre endometriose."},
+  {id:38,titulo:"Dia do Oftalmologista",data:"2026-05-07",hora:"10:00",canal:"ig",sec:"SESAU",equipe:"",copy:"Saúde ocular. Post educativo com dicas de prevenção."},
+  {id:39,titulo:"Dia Nacional do Turismo",data:"2026-05-08",hora:"09:00",canal:"ambos",sec:"SETUR",equipe:"",copy:"Valorização do turismo local em São Vicente."},
+  {id:40,titulo:"Dia das Mães",data:"2026-05-10",hora:"08:00",canal:"ambos",sec:"Comunicação",equipe:"",copy:"Homenagem institucional. Integrar com Corrida da Família."},
+  {id:41,titulo:"Dia Internacional da Enfermagem",data:"2026-05-12",hora:"09:00",canal:"ambos",sec:"SESAU",equipe:"",copy:"Valorização dos profissionais de enfermagem do município."},
+  {id:42,titulo:"Abolição da Escravatura",data:"2026-05-13",hora:"08:00",canal:"ambos",sec:"Comunicação",equipe:"",copy:"Carta SV + contexto histórico. Conteúdo reflexivo e institucional."},
+  {id:43,titulo:"Dia do Assistente Social",data:"2026-05-15",hora:"09:00",canal:"ambos",sec:"SEDES",equipe:"",copy:"Reconhecimento dos assistentes sociais municipais."},
+  {id:44,titulo:"Dia Internacional da Família",data:"2026-05-15",hora:"10:00",canal:"ambos",sec:"Comunicação",equipe:"",copy:"O que SV oferece para famílias: saúde, educação, lazer."},
+  {id:45,titulo:"Dia do Gari",data:"2026-05-16",hora:"09:00",canal:"ambos",sec:"SESP",equipe:"",copy:"Agradecimento aos garis + pauta de meio ambiente."},
+  {id:46,titulo:"Dia da Reciclagem",data:"2026-05-17",hora:"09:00",canal:"ambos",sec:"SEMAM",equipe:"",copy:"Sustentabilidade. Integrar com ação Recicla SV do dia 12."},
+  {id:47,titulo:"Combate ao Abuso Infantil",data:"2026-05-18",hora:"09:00",canal:"ambos",sec:"SEDHC",equipe:"",copy:"Conscientização. Campanha de proteção à criança."},
+  {id:48,titulo:"Diversidade Cultural",data:"2026-05-21",hora:"09:00",canal:"ambos",sec:"SECULT",equipe:"",copy:"Diálogo e desenvolvimento. Diversidade cultural em SV."},
+  {id:49,titulo:"Biodiversidade",data:"2026-05-22",hora:"09:00",canal:"ambos",sec:"SEMAM",equipe:"",copy:"Preservação. Destaque para áreas verdes e praias de SV."},
+  {id:50,titulo:"Juventude Constitucionalista",data:"2026-05-23",hora:"09:00",canal:"ambos",sec:"Comunicação",equipe:"",copy:"Conteúdo histórico sobre a Revolução Constitucionalista de 1932."},
+  {id:51,titulo:"Dia do Orgulho Nerd",data:"2026-05-25",hora:"10:00",canal:"ig",sec:"Comunicação",equipe:"",copy:"Conteúdo leve de engajamento."},
+  {id:52,titulo:"Dia da Adoção",data:"2026-05-25",hora:"09:00",canal:"ambos",sec:"SEDES",equipe:"",copy:"Ações de adoção. Verificar programação com SEDES."},
+  {id:53,titulo:"Dia do Serviço de Saúde",data:"2026-05-27",hora:"09:00",canal:"ambos",sec:"SESAU",equipe:"",copy:"Valorização dos serviços de saúde municipais."},
+  {id:54,titulo:"Dia da Mata Atlântica",data:"2026-05-27",hora:"10:00",canal:"ambos",sec:"SEMAM",equipe:"",copy:"Área preservada em SV. Conteúdo sobre meio ambiente."},
+  {id:55,titulo:"Dia do Brincar",data:"2026-05-28",hora:"09:00",canal:"ambos",sec:"SEDUC",equipe:"",copy:"Infância e espaços de lazer para crianças em SV."},
+  {id:56,titulo:"Saúde da Mulher",data:"2026-05-28",hora:"10:00",canal:"ambos",sec:"SESAU",equipe:"",copy:"Conscientização sobre saúde da mulher."},
+  {id:57,titulo:"Dia do Desafio",data:"2026-05-29",hora:"09:00",canal:"ambos",sec:"SESPOR",equipe:"",copy:"Atividade física e esporte. SV participa do Dia do Desafio?"},
+  {id:58,titulo:"Esclerose Múltipla",data:"2026-05-30",hora:"09:00",canal:"ambos",sec:"SESAU",equipe:"",copy:"Conscientização sobre esclerose múltipla."},
+  {id:59,titulo:"Dia Mundial sem Tabaco",data:"2026-05-31",hora:"09:00",canal:"ambos",sec:"SESAU",equipe:"",copy:"Prevenção ao tabagismo. Campanha de saúde."}
+];
+
+function loadPosts(){
+  try{var r=localStorage.getItem(STORAGE_KEY);if(r)return JSON.parse(r);}catch(e){}
+  return DEFAULT_POSTS.map(function(p){return Object.assign({},p);});
+}
+function persist(){
+  try{localStorage.setItem(STORAGE_KEY,JSON.stringify(posts));localStorage.setItem(STORAGE_NID,String(nid));}catch(e){}
+}
+function loadNid(){
+  try{var v=localStorage.getItem(STORAGE_NID);if(v)return parseInt(v);}catch(e){}
+  return 60;
+}
+
+var posts=loadPosts();
+var nid=loadNid();
+var cY=2026,cM=4,cView='cal',cCh='all',editId=null,canVal='ambos';
+
+function td(){var d=new Date();return{y:d.getFullYear(),m:d.getMonth(),d:d.getDate()};}
+function fp(){
+  if(cCh==='all')return posts;
+  if(cCh==='evento')return posts.filter(function(p){return p.canal==='evento';});
+  return posts.filter(function(p){return p.canal===cCh||p.canal==='ambos';});
+}
+function fpM(){return fp().filter(function(p){var s=p.data.split('-');return parseInt(s[0])===cY&&parseInt(s[1])-1===cM;});}
+function forDay(d){return fp().filter(function(p){var s=p.data.split('-');return parseInt(s[0])===cY&&parseInt(s[1])-1===cM&&parseInt(s[2])===d;});}
+
+function setChannel(c,el){
+  cCh=c;
+  document.querySelectorAll('.cfchip').forEach(function(x){x.className='cfchip';});
+  if(el)el.classList.add('active-'+c);
+  render();
+}
+function setView(v){
+  cView=v;
+  var isC=v==='cal';
+  document.getElementById('view-cal').style.display=isC?'':'none';
+  document.getElementById('main-grid').style.display=isC?'grid':'none';
+  document.getElementById('view-list').style.display=isC?'none':'flex';
+  document.getElementById('vbtn-cal').classList.toggle('active',isC);
+  document.getElementById('vbtn-list').classList.toggle('active',!isC);
+  render();
+}
+function prevMonth(){cM--;if(cM<0){cM=11;cY--;}render();}
+function nextMonth(){cM++;if(cM>11){cM=0;cY++;}render();}
+
+function render(){
+  var lbl=MESES[cM]+' '+cY;
+  document.getElementById('month-lbl').textContent=lbl;
+  document.getElementById('topbar-title').textContent='Dashboard — '+lbl;
+  updateStats();
+  if(cView==='cal')renderCal();else renderList();
+  renderUpcoming();
+  renderSecChart();
+}
+
+function updateStats(){
+  var all=posts.filter(function(p){var s=p.data.split('-');return parseInt(s[0])===cY&&parseInt(s[1])-1===cM;});
+  document.getElementById('st-total').textContent=all.length;
+  document.getElementById('st-dc').textContent=all.filter(function(p){return p.canal!=='evento';}).length;
+  document.getElementById('st-ev').textContent=all.filter(function(p){return p.canal==='evento';}).length;
+  document.getElementById('st-ig').textContent=all.filter(function(p){return p.canal==='ig'||p.canal==='ambos';}).length;
+  document.getElementById('st-fb').textContent=all.filter(function(p){return p.canal==='fb'||p.canal==='ambos';}).length;
+  document.getElementById('badge-count').textContent=all.length;
+}
+
+function renderCal(){
+  var t=td();
+  var first=new Date(cY,cM,1).getDay();
+  var days=new Date(cY,cM+1,0).getDate();
+  var h='';
+  DIAS_SHORT.forEach(function(d){h+='<div class="cal-dh">'+d+'</div>';});
+  for(var i=0;i<first;i++)h+='<div class="cal-day empty"></div>';
+  for(var d=1;d<=days;d++){
+    var isT=t.y===cY&&t.m===cM&&t.d===d;
+    var dp=forDay(d);
+    h+='<div class="cal-day'+(isT?' today':'')+'" onclick="dayClick('+d+')">';
+    h+='<div class="dn'+(isT?' tn':'')+'">'+d+'</div>';
+    dp.slice(0,3).forEach(function(p){
+      h+='<div class="pdot '+p.canal+'" onclick="event.stopPropagation();editPost('+p.id+')" title="'+p.titulo+(p.equipe?' | '+p.equipe:'')+'">'+p.titulo+'</div>';
+    });
+    if(dp.length>3)h+='<div class="more">+'+(dp.length-3)+'</div>';
+    h+='</div>';
+  }
+  document.getElementById('cal-grid').innerHTML=h;
+}
+
+function renderList(){
+  var el=document.getElementById('view-list');
+  var sorted=fpM().sort(function(a,b){return a.data.localeCompare(b.data)||a.hora.localeCompare(b.hora);});
+  if(!sorted.length){el.innerHTML='<div style="text-align:center;padding:2rem;color:var(--text2);font-size:12px">Nenhuma pauta neste mês.</div>';return;}
+  el.innerHTML=sorted.map(function(p){
+    var s=p.data.split('-');
+    var col=SCOL[p.sec]||'#8892a4';
+    var isEv=p.canal==='evento';
+    var cL=isEv?'Evento':p.canal==='ambos'?'IG + FB':p.canal==='ig'?'Instagram':'Facebook';
+    var diaSem=dow(p.data);
+    return'<div class="list-card" onclick="editPost('+p.id+')">'+
+      '<div class="ldate"><div class="ld">'+parseInt(s[2])+'</div><div class="lm">'+M3[parseInt(s[1])-1]+'</div><div class="ldow">'+dowShort(p.data)+'</div></div>'+
+      '<div class="lbody">'+
+        '<div class="ltitle">'+p.titulo+'<span class="dow-badge">'+diaSem+'</span></div>'+
+        '<div class="lmeta">'+
+          '<span class="utag '+p.canal+'">'+cL+'</span>'+
+          '<span class="utag sec">'+p.sec+'</span>'+
+          '<span class="utag sec">'+p.hora+'</span>'+
+          (p.equipe?'<span class="utag sec">'+p.equipe+'</span>':'')+
+          (isEv?'<span class="tipo-ev">Operacional</span>':'<span class="tipo-dc">Editorial</span>')+
+        '</div>'+
+        (p.copy?'<div class="lcopy">'+p.copy+'</div>':'')+
+      '</div>'+
+      '<div class="lbar" style="background:'+col+'"></div>'+
+    '</div>';
+  }).join('');
+}
+
+function renderUpcoming(){
+  var t=td();
+  var ds=t.y+'-'+String(t.m+1).padStart(2,'0')+'-'+String(t.d).padStart(2,'0');
+  var up=fp().filter(function(p){return p.data>=ds;}).sort(function(a,b){return a.data.localeCompare(b.data)||a.hora.localeCompare(b.hora);}).slice(0,6);
+  if(!up.length){document.getElementById('upcoming').innerHTML='<div style="color:var(--text2);font-size:10px;padding:4px 0">Nenhuma pauta próxima.</div>';return;}
+  document.getElementById('upcoming').innerHTML=up.map(function(p){
+    var s=p.data.split('-');
+    var isEv=p.canal==='evento';
+    var cL=isEv?'Evento':p.canal==='ambos'?'IG+FB':p.canal==='ig'?'IG':'FB';
+    return'<div class="up-item">'+
+      '<div class="up-date"><div class="ud">'+parseInt(s[2])+'</div><div class="um">'+M3[parseInt(s[1])-1]+'</div></div>'+
+      '<div class="up-body">'+
+        '<div class="up-title">'+p.titulo+'</div>'+
+        '<div class="up-tags">'+
+          '<span class="utag '+p.canal+'">'+cL+'</span>'+
+          '<span class="utag sec">'+dowShort(p.data)+'</span>'+
+          '<span class="utag sec">'+p.sec+'</span>'+
+          (p.equipe?'<span class="utag sec">'+p.equipe+'</span>':'')+
+        '</div>'+
+      '</div>'+
+    '</div>';
+  }).join('');
+}
+
+function renderSecChart(){
+  var all=posts.filter(function(p){var s=p.data.split('-');return parseInt(s[0])===cY&&parseInt(s[1])-1===cM;});
+  var counts={};
+  all.forEach(function(p){counts[p.sec]=(counts[p.sec]||0)+1;});
+  var sorted=Object.entries(counts).sort(function(a,b){return b[1]-a[1];}).slice(0,10);
+  var max=sorted.length?sorted[0][1]:1;
+  document.getElementById('sec-chart').innerHTML=sorted.length?sorted.map(function(e){
+    var col=SCOL[e[0]]||'#8892a4';
+    return'<div class="sec-row">'+
+      '<div class="sn">'+e[0]+'</div>'+
+      '<div class="bar-wrap"><div class="bar-fill" style="width:'+Math.round(e[1]/max*100)+'%;background:'+col+'"></div></div>'+
+      '<div class="sc">'+e[1]+'</div>'+
+    '</div>';
+  }).join(''):'<div style="color:var(--text2);font-size:10px">Sem dados.</div>';
+}
+
+function dayClick(d){
+  var mm=String(cM+1).padStart(2,'0'),dd=String(d).padStart(2,'0');
+  document.getElementById('f-data').value=cY+'-'+mm+'-'+dd;
+  updateDow();
+  openModal();
+}
+
+function openModal(id){
+  editId=id||null;
+  if(id){
+    var p=posts.find(function(x){return x.id===id;});
+    document.getElementById('modal-h').textContent='Editar pauta';
+    document.getElementById('f-titulo').value=p.titulo;
+    document.getElementById('f-data').value=p.data;
+    document.getElementById('f-hora').value=p.hora;
+    document.getElementById('f-equipe').value=p.equipe||'';
+    document.getElementById('f-copy').value=p.copy||'';
+    canVal=p.canal;
+    document.getElementById('f-sec').value=p.sec;
+    document.getElementById('btn-del').style.display='';
+  } else {
+    document.getElementById('modal-h').textContent='Nova pauta';
+    document.getElementById('f-titulo').value='';
+    if(!document.getElementById('f-data').value){
+      var t=td();
+      document.getElementById('f-data').value=t.y+'-'+String(t.m+1).padStart(2,'0')+'-'+String(t.d).padStart(2,'0');
+    }
+    document.getElementById('f-hora').value='09:00';
+    document.getElementById('f-equipe').value='';
+    document.getElementById('f-copy').value='';
+    canVal='ambos';
+    document.getElementById('f-sec').value='Comunicação';
+    document.getElementById('btn-del').style.display='none';
+  }
+  updateDow();
+  updateCanUI();
+  document.getElementById('modal-bg').classList.add('open');
+}
+
+function editPost(id){openModal(id);}
+function selCan(c){canVal=c;updateCanUI();}
+function updateCanUI(){
+  ['ig','fb','ambos','evento'].forEach(function(c){
+    var el=document.getElementById('ct-'+c);
+    el.className='ctog'+(c===canVal?' active-'+c:'');
+  });
+}
+function closeModal(){document.getElementById('modal-bg').classList.remove('open');document.getElementById('f-data').value='';document.getElementById('f-dow').value='';editId=null;}
+function closeBg(e){if(e.target===document.getElementById('modal-bg'))closeModal();}
+
+function savePost(){
+  var titulo=document.getElementById('f-titulo').value.trim();
+  var data=document.getElementById('f-data').value;
+  if(!titulo||!data)return;
+  var post={
+    id:editId||nid++,
+    titulo:titulo,
+    data:data,
+    hora:document.getElementById('f-hora').value,
+    canal:canVal,
+    sec:document.getElementById('f-sec').value,
+    equipe:document.getElementById('f-equipe').value.trim(),
+    copy:document.getElementById('f-copy').value.trim()
+  };
+  if(editId){
+    var idx=posts.findIndex(function(p){return p.id===editId;});
+    posts[idx]=post;
+  } else {
+    posts.push(post);
+  }
+  persist();
+  var s=data.split('-');
+  cY=parseInt(s[0]);cM=parseInt(s[1])-1;
+  closeModal();render();
+}
+
+function delPost(){
+  if(!editId||!confirm('Excluir esta pauta?'))return;
+  posts=posts.filter(function(p){return p.id!==editId;});
+  persist();
+  closeModal();render();
+}
+
+function resetData(){
+  if(!confirm('Restaurar todos os dados originais? As alterações serão perdidas.'))return;
+  localStorage.removeItem(STORAGE_KEY);
+  localStorage.removeItem(STORAGE_NID);
+  posts=DEFAULT_POSTS.map(function(p){return Object.assign({},p);});
+  nid=60;
+  render();
+}
+
+render();
+</script>
+</body>
+</html>
