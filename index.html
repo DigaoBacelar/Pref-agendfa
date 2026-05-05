@@ -18,6 +18,7 @@
   --amb:#c084fc;--amb-bg:rgba(192,132,252,.08);--amb-border:rgba(192,132,252,.25);
   --ev:#34d399;--ev-bg:rgba(52,211,153,.08);--ev-border:rgba(52,211,153,.25);
   --tt:#69C9D0;--tt-bg:rgba(105,201,208,.08);--tt-border:rgba(105,201,208,.25);
+  --st:#f59e0b;--st-bg:rgba(245,158,11,.08);--st-border:rgba(245,158,11,.25);
   --font:'DM Sans',sans-serif;--mono:'DM Mono',monospace;
 }
 html,body{height:100%;background:var(--bg0);color:var(--text1);font-family:var(--font);font-size:13px;line-height:1.5;overflow:hidden}
@@ -57,6 +58,7 @@ html,body{height:100%;background:var(--bg0);color:var(--text1);font-family:var(-
 .cfchip.active-fb{border-color:var(--fb-border);color:var(--fb);background:var(--fb-bg)}
 .cfchip.active-pauta{border-color:var(--ev-border);color:var(--ev);background:var(--ev-bg)}
 .cfchip.active-tiktok{border-color:var(--tt-border);color:var(--tt);background:var(--tt-bg)}
+.cfchip.active-stories{border-color:var(--st-border);color:var(--st);background:var(--st-bg)}
 .nav-month{display:flex;align-items:center;gap:5px}
 .mnav{background:var(--bg2);border:1px solid var(--border2);border-radius:5px;color:var(--text2);padding:3px 9px;cursor:pointer;font-size:13px}
 .mnav:hover{color:var(--text1)}
@@ -96,6 +98,7 @@ html,body{height:100%;background:var(--bg0);color:var(--text1);font-family:var(-
 .pdot.ambos{background:var(--amb-bg);color:var(--amb);border-color:var(--amb-border)}
 .pdot.pauta{background:var(--ev-bg);color:var(--ev);border-color:var(--ev-border)}
 .pdot.tiktok{background:var(--tt-bg);color:var(--tt);border-color:var(--tt-border)}
+.pdot.stories{background:var(--st-bg);color:var(--st);border-color:var(--st-border)}
 .more{font-size:8px;color:var(--text3);margin-top:1px;font-family:var(--mono)}
 .side{display:flex;flex-direction:column;gap:8px}
 .panel{background:var(--bg1);border:1px solid var(--border);border-radius:11px;padding:12px}
@@ -114,6 +117,7 @@ html,body{height:100%;background:var(--bg0);color:var(--text1);font-family:var(-
 .utag.ambos{background:var(--amb-bg);color:var(--amb);border:1px solid var(--amb-border)}
 .utag.pauta{background:var(--ev-bg);color:var(--ev);border:1px solid var(--ev-border)}
 .utag.tiktok{background:var(--tt-bg);color:var(--tt);border:1px solid var(--tt-border)}
+.utag.stories{background:var(--st-bg);color:var(--st);border:1px solid var(--st-border)}
 .utag.sec{background:var(--bg3);color:var(--text2);border:1px solid var(--border2)}
 .sec-row{display:flex;align-items:center;gap:7px;margin-bottom:6px}
 .sec-row:last-child{margin-bottom:0}
@@ -156,6 +160,7 @@ html,body{height:100%;background:var(--bg0);color:var(--text1);font-family:var(-
 .ctog.active-ambos{border-color:var(--amb-border);color:var(--amb);background:var(--amb-bg)}
 .ctog.active-pauta{border-color:var(--ev-border);color:var(--ev);background:var(--ev-bg)}
 .ctog.active-tiktok{border-color:var(--tt-border);color:var(--tt);background:var(--tt-bg)}
+.ctog.active-stories{border-color:var(--st-border);color:var(--st);background:var(--st-bg)}
 .search-wrap{padding:8px 10px;border-bottom:1px solid var(--border)}
 .search-input{width:100%;background:var(--bg2);border:1px solid var(--border2);border-radius:7px;color:var(--text1);font-size:11px;padding:6px 9px;outline:none;font-family:var(--font)}
 .search-input:focus{border-color:var(--orange)}
@@ -339,6 +344,9 @@ html,body{height:100%;background:var(--bg0);color:var(--text1);font-family:var(-
     <div class="nav-item" onclick="setChannel('tiktok',null);setSideTab('pautas')">
       <span style="width:8px;height:8px;border-radius:50%;background:var(--tt);display:inline-block;flex-shrink:0"></span>TikTok
     </div>
+    <div class="nav-item" onclick="setChannel('stories',null);setSideTab('pautas')">
+      <span style="width:8px;height:8px;border-radius:50%;background:var(--st);display:inline-block;flex-shrink:0"></span>Stories
+    </div>
     <div class="nav-item" onclick="setChannel('ambos',null);setSideTab('pautas')">
       <span style="width:8px;height:8px;border-radius:50%;background:var(--amb);display:inline-block;flex-shrink:0"></span>IG + FB
     </div>
@@ -369,6 +377,7 @@ html,body{height:100%;background:var(--bg0);color:var(--text1);font-family:var(-
       <button class="cfchip" onclick="setChannel('fb',this)">Facebook</button>
       <button class="cfchip" onclick="setChannel('pauta',this)">Pautas</button>
       <button class="cfchip" onclick="setChannel('tiktok',this)">TikTok</button>
+      <button class="cfchip" onclick="setChannel('stories',this)">Stories</button>
     </div>
     <div class="nav-month">
       <button class="mnav" onclick="prevMonth()">&#8249;</button>
@@ -388,6 +397,7 @@ html,body{height:100%;background:var(--bg0);color:var(--text1);font-family:var(-
     <button class="cfchip" id="mob-ch-fb" onclick="setChannel('fb',this)">Facebook</button>
     <button class="cfchip" id="mob-ch-ev" onclick="setChannel('pauta',this)">Pautas</button>
     <button class="cfchip" id="mob-ch-tt" onclick="setChannel('tiktok',this)">TikTok</button>
+    <button class="cfchip" id="mob-ch-st" onclick="setChannel('stories',this)">Stories</button>
     <div style="width:1px;background:var(--border2);margin:0 2px;flex-shrink:0"></div>
     <button class="vbtn active" id="mob-vbtn-cal" onclick="setView('cal')">Calendário</button>
     <button class="vbtn" id="mob-vbtn-list" onclick="setView('list')">Lista</button>
@@ -487,9 +497,9 @@ html,body{height:100%;background:var(--bg0);color:var(--text1);font-family:var(-
     <div class="canal-toggle">
       <div class="ctog" id="ct-ig" onclick="selCan('ig')">Instagram</div>
       <div class="ctog" id="ct-fb" onclick="selCan('fb')">Facebook</div>
-      <div class="ctog" id="ct-ambos" onclick="selCan('ambos')">Ambos</div>
-      <div class="ctog" id="ct-pauta" onclick="selCan('pauta')">Pauta</div>
       <div class="ctog" id="ct-tiktok" onclick="selCan('tiktok')">TikTok</div>
+      <div class="ctog" id="ct-stories" onclick="selCan('stories')">Stories</div>
+      <div class="ctog" id="ct-pauta" onclick="selCan('pauta')">Pauta</div>
     </div>
   </div>
   <div class="row2">
@@ -628,15 +638,31 @@ function loadNid(){
 
 var posts=loadPosts();
 var nid=loadNid();
-var cY=2026,cM=4,cView='cal',cCh='all',editId=null,canVal='ambos',searchTerm='';
+var cY=2026,cM=4,cView='cal',cCh='all',editId=null,canVal=['ig'],searchTerm='';
 
 function td(){var d=new Date();return{y:d.getFullYear(),m:d.getMonth(),d:d.getDate()};}
+
+function getCanals(p){
+  if(!p.canal)return['ig'];
+  if(Array.isArray(p.canal))return p.canal;
+  if(p.canal==='ambos')return['ig','fb'];
+  return[p.canal];
+}
+function canalLabel(c){
+  return c==='pauta'?'Pauta':c==='tiktok'?'TikTok':c==='ig'?'IG':c==='fb'?'FB':c==='ambos'?'IG+FB':c==='stories'?'Stories':c;
+}
+function canalTags(p){
+  return getCanals(p).map(function(c){return'<span class="utag '+c+'">'+canalLabel(c)+'</span>';}).join('');
+}
+
 function fp(){
   var base;
-  if(cCh==='all')base=posts;
-  else if(cCh==='pauta')base=posts.filter(function(p){return p.canal==='pauta';});
-  else if(cCh==='tiktok')base=posts.filter(function(p){return p.canal==='tiktok';});
-  else base=posts.filter(function(p){return p.canal===cCh||p.canal==='ambos';});
+  if(cCh==='all'){base=posts;}
+  else if(cCh==='ambos'){
+    base=posts.filter(function(p){var cs=getCanals(p);return cs.indexOf('ig')>-1&&cs.indexOf('fb')>-1;});
+  } else {
+    base=posts.filter(function(p){return getCanals(p).indexOf(cCh)>-1;});
+  }
   if(!searchTerm)return base;
   return base.filter(function(p){
     return p.titulo.toLowerCase().indexOf(searchTerm)>-1||
@@ -709,10 +735,10 @@ function render(){
 function updateStats(){
   var all=posts.filter(function(p){var s=p.data.split('-');return parseInt(s[0])===cY&&parseInt(s[1])-1===cM;});
   document.getElementById('st-total').textContent=all.length;
-  document.getElementById('st-dc').textContent=all.filter(function(p){return p.canal==='pauta';}).length;
-  document.getElementById('st-ev').textContent=all.filter(function(p){return p.canal==='tiktok';}).length;
-  document.getElementById('st-ig').textContent=all.filter(function(p){return p.canal==='ig'||p.canal==='ambos';}).length;
-  document.getElementById('st-fb').textContent=all.filter(function(p){return p.canal==='fb'||p.canal==='ambos';}).length;
+  document.getElementById('st-dc').textContent=all.filter(function(p){return getCanals(p).indexOf('pauta')>-1;}).length;
+  document.getElementById('st-ev').textContent=all.filter(function(p){return getCanals(p).indexOf('tiktok')>-1;}).length;
+  document.getElementById('st-ig').textContent=all.filter(function(p){return getCanals(p).indexOf('ig')>-1;}).length;
+  document.getElementById('st-fb').textContent=all.filter(function(p){return getCanals(p).indexOf('fb')>-1;}).length;
   document.getElementById('badge-count').textContent=all.length;
 }
 
@@ -730,7 +756,8 @@ function renderCal(){
     h+='<div class="cal-day'+(isT?' today':'')+(isPastDay?' past-day':'')+'" onclick="dayClick('+d+')">';
     h+='<div class="dn'+(isT?' tn':'')+'">'+d+'</div>';
     dp.slice(0,3).forEach(function(p){
-      h+='<div class="pdot '+p.canal+(isPastDay?' past':'')+'" onclick="event.stopPropagation();editPost('+p.id+')" title="'+p.titulo+(p.equipe?' | '+p.equipe:'')+'">'+p.titulo+'</div>';
+      var primaryCh=getCanals(p)[0];
+      h+='<div class="pdot '+primaryCh+(isPastDay?' past':'')+'" onclick="event.stopPropagation();editPost('+p.id+')" title="'+p.titulo+(p.equipe?' | '+p.equipe:'')+'">'+p.titulo+'</div>';
     });
     if(dp.length>3)h+='<div class="more">+'+(dp.length-3)+'</div>';
     h+='</div>';
@@ -747,8 +774,9 @@ function renderList(){
   el.innerHTML=sorted.map(function(p){
     var s=p.data.split('-');
     var col=SCOL[p.sec]||'#8892a4';
-    var isEv=p.canal==='pauta';
-    var cL=p.canal==='pauta'?'Pauta':p.canal==='tiktok'?'TikTok':p.canal==='ambos'?'IG + FB':p.canal==='ig'?'Instagram':'Facebook';
+    var cs=getCanals(p);
+    var isEv=cs.indexOf('pauta')>-1;
+    var isTT=cs.indexOf('tiktok')>-1;
     var diaSem=dow(p.data);
     var isPast=p.data<todayStr;
     return'<div class="list-card'+(isPast?' past':'')+'" onclick="editPost('+p.id+')">'+
@@ -756,11 +784,11 @@ function renderList(){
       '<div class="lbody">'+
         '<div class="ltitle">'+p.titulo+'<span class="dow-badge">'+diaSem+'</span></div>'+
         '<div class="lmeta">'+
-          '<span class="utag '+p.canal+'">'+cL+'</span>'+
+          canalTags(p)+
           '<span class="utag sec">'+p.sec+'</span>'+
           '<span class="utag sec">'+p.hora+'</span>'+
           (p.equipe?'<span class="utag sec">'+p.equipe+'</span>':'')+
-          (p.canal==='pauta'?'<span class="tipo-ev">Pauta</span>':p.canal==='tiktok'?'<span class="tipo-tt">TikTok</span>':'<span class="tipo-dc">Editorial</span>')+
+          (isEv?'<span class="tipo-ev">Pauta</span>':isTT?'<span class="tipo-tt">TikTok</span>':'<span class="tipo-dc">Editorial</span>')+
         '</div>'+
         (p.copy?'<div class="lcopy">'+p.copy+'</div>':'')+
       '</div>'+
@@ -776,13 +804,12 @@ function renderUpcoming(){
   if(!up.length){document.getElementById('upcoming').innerHTML='<div style="color:var(--text2);font-size:10px;padding:4px 0">Nenhuma pauta próxima.</div>';return;}
   document.getElementById('upcoming').innerHTML=up.map(function(p){
     var s=p.data.split('-');
-    var cL=p.canal==='pauta'?'Pauta':p.canal==='tiktok'?'TikTok':p.canal==='ambos'?'IG+FB':p.canal==='ig'?'IG':'FB';
     return'<div class="up-item">'+
       '<div class="up-date"><div class="ud">'+parseInt(s[2])+'</div><div class="um">'+M3[parseInt(s[1])-1]+'</div></div>'+
       '<div class="up-body">'+
         '<div class="up-title">'+p.titulo+'</div>'+
         '<div class="up-tags">'+
-          '<span class="utag '+p.canal+'">'+cL+'</span>'+
+          canalTags(p)+
           '<span class="utag sec">'+dowShort(p.data)+'</span>'+
           '<span class="utag sec">'+p.sec+'</span>'+
           (p.equipe?'<span class="utag sec">'+p.equipe+'</span>':'')+
@@ -825,7 +852,7 @@ function openModal(id){
     document.getElementById('f-hora').value=p.hora;
     document.getElementById('f-equipe').value=p.equipe||'';
     document.getElementById('f-copy').value=p.copy||'';
-    canVal=p.canal;
+    canVal=getCanals(p).slice();
     document.getElementById('f-sec').value=p.sec;
     document.getElementById('btn-del').style.display='';
   } else {
@@ -838,7 +865,7 @@ function openModal(id){
     document.getElementById('f-hora').value='09:00';
     document.getElementById('f-equipe').value='';
     document.getElementById('f-copy').value='';
-    canVal='ambos';
+    canVal=['ig'];
     document.getElementById('f-sec').value='Comunicação';
     document.getElementById('btn-del').style.display='none';
   }
@@ -848,12 +875,17 @@ function openModal(id){
 }
 
 function editPost(id){openModal(id);}
-function selCan(c){canVal=c;updateCanUI();}
+function selCan(c){
+  var i=canVal.indexOf(c);
+  if(i>-1){if(canVal.length>1)canVal.splice(i,1);}
+  else{canVal.push(c);}
+  updateCanUI();
+}
 function updateCanUI(){
-  ['ig','fb','ambos','pauta','tiktok'].forEach(function(c){
+  ['ig','fb','tiktok','stories','pauta'].forEach(function(c){
     var el=document.getElementById('ct-'+c);
     if(!el)return;
-    el.className='ctog'+(c===canVal?' active-'+c:'');
+    el.className='ctog'+(canVal.indexOf(c)>-1?' active-'+c:'');
   });
 }
 function closeModal(){document.getElementById('modal-bg').classList.remove('open');document.getElementById('f-data').value='';document.getElementById('f-dow').value='';editId=null;}
@@ -868,7 +900,7 @@ function savePost(){
     titulo:titulo,
     data:data,
     hora:document.getElementById('f-hora').value,
-    canal:canVal,
+    canal:canVal.length===1?canVal[0]:canVal.slice(),
     sec:document.getElementById('f-sec').value,
     equipe:document.getElementById('f-equipe').value.trim(),
     copy:document.getElementById('f-copy').value.trim()
