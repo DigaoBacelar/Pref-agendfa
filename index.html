@@ -17,6 +17,7 @@
   --fb:#60a5fa;--fb-bg:rgba(96,165,250,.08);--fb-border:rgba(96,165,250,.25);
   --amb:#c084fc;--amb-bg:rgba(192,132,252,.08);--amb-border:rgba(192,132,252,.25);
   --ev:#34d399;--ev-bg:rgba(52,211,153,.08);--ev-border:rgba(52,211,153,.25);
+  --tt:#69C9D0;--tt-bg:rgba(105,201,208,.08);--tt-border:rgba(105,201,208,.25);
   --font:'DM Sans',sans-serif;--mono:'DM Mono',monospace;
 }
 html,body{height:100%;background:var(--bg0);color:var(--text1);font-family:var(--font);font-size:13px;line-height:1.5;overflow:hidden}
@@ -54,7 +55,8 @@ html,body{height:100%;background:var(--bg0);color:var(--text1);font-family:var(-
 .cfchip.active-all{border-color:var(--orange-border);color:var(--orange);background:var(--orange-bg)}
 .cfchip.active-ig{border-color:var(--ig-border);color:var(--ig);background:var(--ig-bg)}
 .cfchip.active-fb{border-color:var(--fb-border);color:var(--fb);background:var(--fb-bg)}
-.cfchip.active-evento{border-color:var(--ev-border);color:var(--ev);background:var(--ev-bg)}
+.cfchip.active-pauta{border-color:var(--ev-border);color:var(--ev);background:var(--ev-bg)}
+.cfchip.active-tiktok{border-color:var(--tt-border);color:var(--tt);background:var(--tt-bg)}
 .nav-month{display:flex;align-items:center;gap:5px}
 .mnav{background:var(--bg2);border:1px solid var(--border2);border-radius:5px;color:var(--text2);padding:3px 9px;cursor:pointer;font-size:13px}
 .mnav:hover{color:var(--text1)}
@@ -92,7 +94,8 @@ html,body{height:100%;background:var(--bg0);color:var(--text1);font-family:var(-
 .pdot.ig{background:var(--ig-bg);color:var(--ig);border-color:var(--ig-border)}
 .pdot.fb{background:var(--fb-bg);color:var(--fb);border-color:var(--fb-border)}
 .pdot.ambos{background:var(--amb-bg);color:var(--amb);border-color:var(--amb-border)}
-.pdot.evento{background:var(--ev-bg);color:var(--ev);border-color:var(--ev-border)}
+.pdot.pauta{background:var(--ev-bg);color:var(--ev);border-color:var(--ev-border)}
+.pdot.tiktok{background:var(--tt-bg);color:var(--tt);border-color:var(--tt-border)}
 .more{font-size:8px;color:var(--text3);margin-top:1px;font-family:var(--mono)}
 .side{display:flex;flex-direction:column;gap:8px}
 .panel{background:var(--bg1);border:1px solid var(--border);border-radius:11px;padding:12px}
@@ -109,7 +112,8 @@ html,body{height:100%;background:var(--bg0);color:var(--text1);font-family:var(-
 .utag.ig{background:var(--ig-bg);color:var(--ig);border:1px solid var(--ig-border)}
 .utag.fb{background:var(--fb-bg);color:var(--fb);border:1px solid var(--fb-border)}
 .utag.ambos{background:var(--amb-bg);color:var(--amb);border:1px solid var(--amb-border)}
-.utag.evento{background:var(--ev-bg);color:var(--ev);border:1px solid var(--ev-border)}
+.utag.pauta{background:var(--ev-bg);color:var(--ev);border:1px solid var(--ev-border)}
+.utag.tiktok{background:var(--tt-bg);color:var(--tt);border:1px solid var(--tt-border)}
 .utag.sec{background:var(--bg3);color:var(--text2);border:1px solid var(--border2)}
 .sec-row{display:flex;align-items:center;gap:7px;margin-bottom:6px}
 .sec-row:last-child{margin-bottom:0}
@@ -131,6 +135,7 @@ html,body{height:100%;background:var(--bg0);color:var(--text1);font-family:var(-
 .lbar{width:3px;border-radius:2px;min-width:3px;align-self:stretch}
 .tipo-dc{font-size:8px;padding:1px 5px;border-radius:7px;background:rgba(251,191,36,.08);color:#fbbf24;border:1px solid rgba(251,191,36,.2)}
 .tipo-ev{font-size:8px;padding:1px 5px;border-radius:7px;background:var(--ev-bg);color:var(--ev);border:1px solid var(--ev-border)}
+.tipo-tt{font-size:8px;padding:1px 5px;border-radius:7px;background:var(--tt-bg);color:var(--tt);border:1px solid var(--tt-border)}
 .modal-bg{display:none;position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:300;align-items:center;justify-content:center}
 .modal-bg.open{display:flex}
 .modal{background:var(--bg1);border:1px solid var(--border2);border-radius:13px;padding:18px;width:min(500px,95vw);max-height:92vh;overflow-y:auto}
@@ -149,7 +154,8 @@ html,body{height:100%;background:var(--bg0);color:var(--text1);font-family:var(-
 .ctog.active-ig{border-color:var(--ig-border);color:var(--ig);background:var(--ig-bg)}
 .ctog.active-fb{border-color:var(--fb-border);color:var(--fb);background:var(--fb-bg)}
 .ctog.active-ambos{border-color:var(--amb-border);color:var(--amb);background:var(--amb-bg)}
-.ctog.active-evento{border-color:var(--ev-border);color:var(--ev);background:var(--ev-bg)}
+.ctog.active-pauta{border-color:var(--ev-border);color:var(--ev);background:var(--ev-bg)}
+.ctog.active-tiktok{border-color:var(--tt-border);color:var(--tt);background:var(--tt-bg)}
 .mfooter{display:flex;justify-content:flex-end;gap:5px;margin-top:12px;padding-top:10px;border-top:1px solid var(--border)}
 .mbtn{padding:6px 14px;border-radius:6px;border:1px solid var(--border2);background:transparent;color:var(--text2);font-size:11px;cursor:pointer;font-family:var(--font)}
 .mbtn:hover{color:var(--text1);background:var(--bg2)}
@@ -331,7 +337,8 @@ html,body{height:100%;background:var(--bg0);color:var(--text1);font-family:var(-
       <button class="cfchip active-all" onclick="setChannel('all',this)">Todos</button>
       <button class="cfchip" onclick="setChannel('ig',this)">Instagram</button>
       <button class="cfchip" onclick="setChannel('fb',this)">Facebook</button>
-      <button class="cfchip" onclick="setChannel('evento',this)">Eventos</button>
+      <button class="cfchip" onclick="setChannel('pauta',this)">Pautas</button>
+      <button class="cfchip" onclick="setChannel('tiktok',this)">TikTok</button>
     </div>
     <div class="nav-month">
       <button class="mnav" onclick="prevMonth()">&#8249;</button>
@@ -349,7 +356,8 @@ html,body{height:100%;background:var(--bg0);color:var(--text1);font-family:var(-
     <button class="cfchip active-all" id="mob-ch-all" onclick="setChannel('all',this)">Todos</button>
     <button class="cfchip" id="mob-ch-ig" onclick="setChannel('ig',this)">Instagram</button>
     <button class="cfchip" id="mob-ch-fb" onclick="setChannel('fb',this)">Facebook</button>
-    <button class="cfchip" id="mob-ch-ev" onclick="setChannel('evento',this)">Eventos</button>
+    <button class="cfchip" id="mob-ch-ev" onclick="setChannel('pauta',this)">Pautas</button>
+    <button class="cfchip" id="mob-ch-tt" onclick="setChannel('tiktok',this)">TikTok</button>
     <div style="width:1px;background:var(--border2);margin:0 2px;flex-shrink:0"></div>
     <button class="vbtn active" id="mob-vbtn-cal" onclick="setView('cal')">Calendário</button>
     <button class="vbtn" id="mob-vbtn-list" onclick="setView('list')">Lista</button>
@@ -360,17 +368,17 @@ html,body{height:100%;background:var(--bg0);color:var(--text1);font-family:var(-
       <div class="stat-card">
         <div class="stat-lbl">Total no mês</div>
         <div class="stat-val" id="st-total">0</div>
-        <div class="stat-tag"><span class="tag-dot" style="background:var(--orange)"></span>pautas + eventos</div>
+        <div class="stat-tag"><span class="tag-dot" style="background:var(--orange)"></span>todos os canais</div>
       </div>
       <div class="stat-card">
-        <div class="stat-lbl">Datas comemorativas</div>
+        <div class="stat-lbl">Pautas</div>
         <div class="stat-val" id="st-dc">0</div>
-        <div class="stat-tag"><span class="tag-dot" style="background:#fbbf24"></span>editorial</div>
+        <div class="stat-tag"><span class="tag-dot" style="background:var(--ev)"></span>operacional</div>
       </div>
       <div class="stat-card">
-        <div class="stat-lbl">Eventos</div>
+        <div class="stat-lbl">TikTok</div>
         <div class="stat-val" id="st-ev">0</div>
-        <div class="stat-tag"><span class="tag-dot" style="background:var(--ev)"></span>operacional</div>
+        <div class="stat-tag"><span class="tag-dot" style="background:var(--tt)"></span>posts</div>
       </div>
       <div class="stat-card">
         <div class="stat-lbl">Instagram</div>
@@ -392,7 +400,8 @@ html,body{height:100%;background:var(--bg0);color:var(--text1);font-family:var(-
             <div class="leg"><div class="leg-dot" style="background:var(--ig-bg);border:1px solid var(--ig-border)"></div>IG</div>
             <div class="leg"><div class="leg-dot" style="background:var(--fb-bg);border:1px solid var(--fb-border)"></div>FB</div>
             <div class="leg"><div class="leg-dot" style="background:var(--amb-bg);border:1px solid var(--amb-border)"></div>Ambos</div>
-            <div class="leg"><div class="leg-dot" style="background:var(--ev-bg);border:1px solid var(--ev-border)"></div>Evento</div>
+            <div class="leg"><div class="leg-dot" style="background:var(--ev-bg);border:1px solid var(--ev-border)"></div>Pauta</div>
+            <div class="leg"><div class="leg-dot" style="background:var(--tt-bg);border:1px solid var(--tt-border)"></div>TikTok</div>
             <div class="leg"><div class="leg-dot" style="border:1.5px solid var(--orange);background:transparent"></div>Hoje</div>
           </div>
         </div>
@@ -449,7 +458,8 @@ html,body{height:100%;background:var(--bg0);color:var(--text1);font-family:var(-
       <div class="ctog" id="ct-ig" onclick="selCan('ig')">Instagram</div>
       <div class="ctog" id="ct-fb" onclick="selCan('fb')">Facebook</div>
       <div class="ctog" id="ct-ambos" onclick="selCan('ambos')">Ambos</div>
-      <div class="ctog" id="ct-evento" onclick="selCan('evento')">Evento</div>
+      <div class="ctog" id="ct-pauta" onclick="selCan('pauta')">Pauta</div>
+      <div class="ctog" id="ct-tiktok" onclick="selCan('tiktok')">TikTok</div>
     </div>
   </div>
   <div class="row2">
@@ -513,41 +523,41 @@ function updateDow(){
 }
 
 var DEFAULT_POSTS=[
-  {id:1,titulo:"Corrida Maria dos Remédios",data:"2026-05-01",hora:"06:00",canal:"evento",sec:"SETUR",equipe:"",copy:"Corrida 6h–9h30. Cobertura fotográfica + stories ao vivo."},
-  {id:2,titulo:"Carreata de Ogum",data:"2026-05-01",hora:"09:00",canal:"evento",sec:"SECULT",equipe:"",copy:"Carreata 9h–20h. Registro cultural."},
-  {id:3,titulo:"Exposição Mães Atípicas",data:"2026-05-01",hora:"15:00",canal:"evento",sec:"SEDHC",equipe:"",copy:"Abertura da exposição 15h. Post de divulgação + cobertura."},
-  {id:4,titulo:"SV Hari",data:"2026-05-02",hora:"09:00",canal:"evento",sec:"SECULT",equipe:"",copy:"Evento cultural SV Hari. Cobertura e divulgação."},
-  {id:5,titulo:"Travessia Entre Ilhas",data:"2026-05-03",hora:"07:00",canal:"evento",sec:"SETUR",equipe:"",copy:"Travessia esportiva 7h–10h. Stories ao vivo."},
-  {id:6,titulo:"Entrevista Vacimóvel",data:"2026-05-04",hora:"10:15",canal:"evento",sec:"SESAU",equipe:"",copy:"Entrevista sobre o Vacimóvel 10h15. Capturar depoimentos."},
-  {id:7,titulo:"Café com Lídia",data:"2026-05-04",hora:"17:00",canal:"evento",sec:"Gabinete",equipe:"",copy:"Evento institucional 17h."},
-  {id:8,titulo:"Reunião Expo Cidadania",data:"2026-05-05",hora:"11:00",canal:"evento",sec:"Múltiplas",equipe:"",copy:"Reunião de alinhamento Expo Cidadania 11h."},
-  {id:9,titulo:"Inspeção Praça 22 de Janeiro",data:"2026-05-05",hora:"09:00",canal:"evento",sec:"SESP",equipe:"",copy:"Vistoria da praça. Registrar estado atual."},
-  {id:10,titulo:"Reunião Revista Nove",data:"2026-05-06",hora:"15:00",canal:"evento",sec:"Comunicação",equipe:"",copy:"Reunião pauta Revista Nove 15h."},
-  {id:11,titulo:"Inspeção Praça (continuação)",data:"2026-05-06",hora:"09:00",canal:"evento",sec:"SESP",equipe:"",copy:"Continuação da inspeção."},
-  {id:12,titulo:"Reinauguração ESF Saquaré",data:"2026-05-08",hora:"09:30",canal:"evento",sec:"SESAU",equipe:"",copy:"Reinauguração da Unidade de Saúde Saquaré 9h30. Cobertura completa."},
-  {id:13,titulo:"Dança Cigana",data:"2026-05-08",hora:"16:30",canal:"evento",sec:"SECULT",equipe:"",copy:"Apresentação cultural 16h30–18h."},
-  {id:14,titulo:"Residência Inclusiva",data:"2026-05-08",hora:"15:30",canal:"evento",sec:"SEDHC",equipe:"",copy:"Evento Residência Inclusiva 15h30."},
-  {id:15,titulo:"Simulado Defesa Civil",data:"2026-05-09",hora:"10:00",canal:"evento",sec:"DF",equipe:"",copy:"Simulado de emergência 10h. Cobertura e divulgação institucional."},
-  {id:16,titulo:"Ilha Encantada",data:"2026-05-09",hora:"11:00",canal:"evento",sec:"SECULT",equipe:"",copy:"Evento cultural Ilha Encantada 11h–15h."},
-  {id:17,titulo:"Corrida da Família",data:"2026-05-10",hora:"05:00",canal:"evento",sec:"SETUR",equipe:"",copy:"Corrida em homenagem ao Dia das Mães 5h–11h. Cobertura completa."},
-  {id:18,titulo:"Recicla SV",data:"2026-05-12",hora:"11:00",canal:"evento",sec:"SEMAM",equipe:"",copy:"Ação Recicla SV 11h. Registro e post sobre sustentabilidade."},
-  {id:19,titulo:"SEBRAE Móvel (dia 1)",data:"2026-05-12",hora:"10:00",canal:"evento",sec:"SETRE",equipe:"",copy:"SEBRAE Móvel 10h–16h. Divulgação nos canais."},
-  {id:20,titulo:"Curso Hambúrguer — Encerramento",data:"2026-05-13",hora:"09:00",canal:"evento",sec:"SEDUC",equipe:"",copy:"Encerramento do curso. Fotos dos formandos."},
-  {id:21,titulo:"SEBRAE Móvel (dia 2)",data:"2026-05-13",hora:"10:00",canal:"evento",sec:"SETRE",equipe:"",copy:"SEBRAE Móvel — segundo dia."},
-  {id:22,titulo:"SEBRAE Móvel (dia 3)",data:"2026-05-14",hora:"10:00",canal:"evento",sec:"SETRE",equipe:"",copy:"SEBRAE Móvel — terceiro dia."},
-  {id:23,titulo:"SEBRAE Móvel (dia 4)",data:"2026-05-15",hora:"10:00",canal:"evento",sec:"SETRE",equipe:"",copy:"SEBRAE Móvel — último dia."},
-  {id:24,titulo:"Open Beach Tennis (dia 1)",data:"2026-05-16",hora:"07:00",canal:"evento",sec:"SESPOR",equipe:"",copy:"Torneio de beach tennis 7h–18h. Cobertura esportiva."},
-  {id:25,titulo:"Vôlei de Praia",data:"2026-05-16",hora:"08:00",canal:"evento",sec:"SESPOR",equipe:"",copy:"Torneio de vôlei de praia 8h–18h."},
-  {id:26,titulo:"Praiô",data:"2026-05-16",hora:"14:00",canal:"evento",sec:"SECULT",equipe:"",copy:"Evento Praiô 14h–21h. Cobertura cultural."},
-  {id:27,titulo:"Open Beach Tennis (dia 2)",data:"2026-05-17",hora:"07:00",canal:"evento",sec:"SESPOR",equipe:"",copy:"Continuação do torneio de beach tennis."},
-  {id:28,titulo:"Reinauguração UBASA",data:"2026-05-19",hora:"09:30",canal:"evento",sec:"SESAU",equipe:"",copy:"Reinauguração da UBASA 9h30. Cobertura completa + release."},
-  {id:29,titulo:"Chá Dia das Mães",data:"2026-05-22",hora:"15:30",canal:"evento",sec:"FSS",equipe:"",copy:"Chá em homenagem ao Dia das Mães 15h30."},
-  {id:30,titulo:"Expo Cidadania (dia 1)",data:"2026-05-23",hora:"09:00",canal:"evento",sec:"Múltiplas",equipe:"",copy:"Expo Cidadania — primeiro dia. Cobertura completa."},
-  {id:31,titulo:"Expo Cidadania (dia 2)",data:"2026-05-24",hora:"09:00",canal:"evento",sec:"Múltiplas",equipe:"",copy:"Expo Cidadania — segundo dia."},
-  {id:32,titulo:"Curso Hambúrguer — Encerramento 2",data:"2026-05-27",hora:"09:00",canal:"evento",sec:"SEDUC",equipe:"",copy:"Segunda turma de encerramento do curso."},
-  {id:33,titulo:"Formatura de Cursos",data:"2026-05-28",hora:"14:00",canal:"evento",sec:"SEDUC",equipe:"",copy:"Formatura dos cursos municipais 14h. Cobertura e post de celebração."},
-  {id:34,titulo:"Expo Cidadania (dia 3)",data:"2026-05-30",hora:"09:00",canal:"evento",sec:"Múltiplas",equipe:"",copy:"Expo Cidadania — terceiro dia."},
-  {id:35,titulo:"Expo Cidadania (encerramento)",data:"2026-05-31",hora:"09:00",canal:"evento",sec:"Múltiplas",equipe:"",copy:"Expo Cidadania — encerramento. Post de balanço."},
+  {id:1,titulo:"Corrida Maria dos Remédios",data:"2026-05-01",hora:"06:00",canal:"pauta",sec:"SETUR",equipe:"",copy:"Corrida 6h–9h30. Cobertura fotográfica + stories ao vivo."},
+  {id:2,titulo:"Carreata de Ogum",data:"2026-05-01",hora:"09:00",canal:"pauta",sec:"SECULT",equipe:"",copy:"Carreata 9h–20h. Registro cultural."},
+  {id:3,titulo:"Exposição Mães Atípicas",data:"2026-05-01",hora:"15:00",canal:"pauta",sec:"SEDHC",equipe:"",copy:"Abertura da exposição 15h. Post de divulgação + cobertura."},
+  {id:4,titulo:"SV Hari",data:"2026-05-02",hora:"09:00",canal:"pauta",sec:"SECULT",equipe:"",copy:"Evento cultural SV Hari. Cobertura e divulgação."},
+  {id:5,titulo:"Travessia Entre Ilhas",data:"2026-05-03",hora:"07:00",canal:"pauta",sec:"SETUR",equipe:"",copy:"Travessia esportiva 7h–10h. Stories ao vivo."},
+  {id:6,titulo:"Entrevista Vacimóvel",data:"2026-05-04",hora:"10:15",canal:"pauta",sec:"SESAU",equipe:"",copy:"Entrevista sobre o Vacimóvel 10h15. Capturar depoimentos."},
+  {id:7,titulo:"Café com Lídia",data:"2026-05-04",hora:"17:00",canal:"pauta",sec:"Gabinete",equipe:"",copy:"Evento institucional 17h."},
+  {id:8,titulo:"Reunião Expo Cidadania",data:"2026-05-05",hora:"11:00",canal:"pauta",sec:"Múltiplas",equipe:"",copy:"Reunião de alinhamento Expo Cidadania 11h."},
+  {id:9,titulo:"Inspeção Praça 22 de Janeiro",data:"2026-05-05",hora:"09:00",canal:"pauta",sec:"SESP",equipe:"",copy:"Vistoria da praça. Registrar estado atual."},
+  {id:10,titulo:"Reunião Revista Nove",data:"2026-05-06",hora:"15:00",canal:"pauta",sec:"Comunicação",equipe:"",copy:"Reunião pauta Revista Nove 15h."},
+  {id:11,titulo:"Inspeção Praça (continuação)",data:"2026-05-06",hora:"09:00",canal:"pauta",sec:"SESP",equipe:"",copy:"Continuação da inspeção."},
+  {id:12,titulo:"Reinauguração ESF Saquaré",data:"2026-05-08",hora:"09:30",canal:"pauta",sec:"SESAU",equipe:"",copy:"Reinauguração da Unidade de Saúde Saquaré 9h30. Cobertura completa."},
+  {id:13,titulo:"Dança Cigana",data:"2026-05-08",hora:"16:30",canal:"pauta",sec:"SECULT",equipe:"",copy:"Apresentação cultural 16h30–18h."},
+  {id:14,titulo:"Residência Inclusiva",data:"2026-05-08",hora:"15:30",canal:"pauta",sec:"SEDHC",equipe:"",copy:"Evento Residência Inclusiva 15h30."},
+  {id:15,titulo:"Simulado Defesa Civil",data:"2026-05-09",hora:"10:00",canal:"pauta",sec:"DF",equipe:"",copy:"Simulado de emergência 10h. Cobertura e divulgação institucional."},
+  {id:16,titulo:"Ilha Encantada",data:"2026-05-09",hora:"11:00",canal:"pauta",sec:"SECULT",equipe:"",copy:"Evento cultural Ilha Encantada 11h–15h."},
+  {id:17,titulo:"Corrida da Família",data:"2026-05-10",hora:"05:00",canal:"pauta",sec:"SETUR",equipe:"",copy:"Corrida em homenagem ao Dia das Mães 5h–11h. Cobertura completa."},
+  {id:18,titulo:"Recicla SV",data:"2026-05-12",hora:"11:00",canal:"pauta",sec:"SEMAM",equipe:"",copy:"Ação Recicla SV 11h. Registro e post sobre sustentabilidade."},
+  {id:19,titulo:"SEBRAE Móvel (dia 1)",data:"2026-05-12",hora:"10:00",canal:"pauta",sec:"SETRE",equipe:"",copy:"SEBRAE Móvel 10h–16h. Divulgação nos canais."},
+  {id:20,titulo:"Curso Hambúrguer — Encerramento",data:"2026-05-13",hora:"09:00",canal:"pauta",sec:"SEDUC",equipe:"",copy:"Encerramento do curso. Fotos dos formandos."},
+  {id:21,titulo:"SEBRAE Móvel (dia 2)",data:"2026-05-13",hora:"10:00",canal:"pauta",sec:"SETRE",equipe:"",copy:"SEBRAE Móvel — segundo dia."},
+  {id:22,titulo:"SEBRAE Móvel (dia 3)",data:"2026-05-14",hora:"10:00",canal:"pauta",sec:"SETRE",equipe:"",copy:"SEBRAE Móvel — terceiro dia."},
+  {id:23,titulo:"SEBRAE Móvel (dia 4)",data:"2026-05-15",hora:"10:00",canal:"pauta",sec:"SETRE",equipe:"",copy:"SEBRAE Móvel — último dia."},
+  {id:24,titulo:"Open Beach Tennis (dia 1)",data:"2026-05-16",hora:"07:00",canal:"pauta",sec:"SESPOR",equipe:"",copy:"Torneio de beach tennis 7h–18h. Cobertura esportiva."},
+  {id:25,titulo:"Vôlei de Praia",data:"2026-05-16",hora:"08:00",canal:"pauta",sec:"SESPOR",equipe:"",copy:"Torneio de vôlei de praia 8h–18h."},
+  {id:26,titulo:"Praiô",data:"2026-05-16",hora:"14:00",canal:"pauta",sec:"SECULT",equipe:"",copy:"Evento Praiô 14h–21h. Cobertura cultural."},
+  {id:27,titulo:"Open Beach Tennis (dia 2)",data:"2026-05-17",hora:"07:00",canal:"pauta",sec:"SESPOR",equipe:"",copy:"Continuação do torneio de beach tennis."},
+  {id:28,titulo:"Reinauguração UBASA",data:"2026-05-19",hora:"09:30",canal:"pauta",sec:"SESAU",equipe:"",copy:"Reinauguração da UBASA 9h30. Cobertura completa + release."},
+  {id:29,titulo:"Chá Dia das Mães",data:"2026-05-22",hora:"15:30",canal:"pauta",sec:"FSS",equipe:"",copy:"Chá em homenagem ao Dia das Mães 15h30."},
+  {id:30,titulo:"Expo Cidadania (dia 1)",data:"2026-05-23",hora:"09:00",canal:"pauta",sec:"Múltiplas",equipe:"",copy:"Expo Cidadania — primeiro dia. Cobertura completa."},
+  {id:31,titulo:"Expo Cidadania (dia 2)",data:"2026-05-24",hora:"09:00",canal:"pauta",sec:"Múltiplas",equipe:"",copy:"Expo Cidadania — segundo dia."},
+  {id:32,titulo:"Curso Hambúrguer — Encerramento 2",data:"2026-05-27",hora:"09:00",canal:"pauta",sec:"SEDUC",equipe:"",copy:"Segunda turma de encerramento do curso."},
+  {id:33,titulo:"Formatura de Cursos",data:"2026-05-28",hora:"14:00",canal:"pauta",sec:"SEDUC",equipe:"",copy:"Formatura dos cursos municipais 14h. Cobertura e post de celebração."},
+  {id:34,titulo:"Expo Cidadania (dia 3)",data:"2026-05-30",hora:"09:00",canal:"pauta",sec:"Múltiplas",equipe:"",copy:"Expo Cidadania — terceiro dia."},
+  {id:35,titulo:"Expo Cidadania (encerramento)",data:"2026-05-31",hora:"09:00",canal:"pauta",sec:"Múltiplas",equipe:"",copy:"Expo Cidadania — encerramento. Post de balanço."},
   {id:36,titulo:"Dia Mundial da Higiene das Mãos",data:"2026-05-05",hora:"08:00",canal:"ambos",sec:"SESAU",equipe:"",copy:"Importância de lavar as mãos. Campanha de conscientização."},
   {id:37,titulo:"Luta Contra a Endometriose",data:"2026-05-07",hora:"09:00",canal:"ambos",sec:"SESAU",equipe:"",copy:"Conscientização sobre endometriose."},
   {id:38,titulo:"Dia do Oftalmologista",data:"2026-05-07",hora:"10:00",canal:"ig",sec:"SESAU",equipe:"",copy:"Saúde ocular. Post educativo com dicas de prevenção."},
@@ -593,7 +603,8 @@ var cY=2026,cM=4,cView='cal',cCh='all',editId=null,canVal='ambos';
 function td(){var d=new Date();return{y:d.getFullYear(),m:d.getMonth(),d:d.getDate()};}
 function fp(){
   if(cCh==='all')return posts;
-  if(cCh==='evento')return posts.filter(function(p){return p.canal==='evento';});
+  if(cCh==='pauta')return posts.filter(function(p){return p.canal==='pauta';});
+  if(cCh==='tiktok')return posts.filter(function(p){return p.canal==='tiktok';});
   return posts.filter(function(p){return p.canal===cCh||p.canal==='ambos';});
 }
 function fpM(){return fp().filter(function(p){var s=p.data.split('-');return parseInt(s[0])===cY&&parseInt(s[1])-1===cM;});}
@@ -646,8 +657,8 @@ function render(){
 function updateStats(){
   var all=posts.filter(function(p){var s=p.data.split('-');return parseInt(s[0])===cY&&parseInt(s[1])-1===cM;});
   document.getElementById('st-total').textContent=all.length;
-  document.getElementById('st-dc').textContent=all.filter(function(p){return p.canal!=='evento';}).length;
-  document.getElementById('st-ev').textContent=all.filter(function(p){return p.canal==='evento';}).length;
+  document.getElementById('st-dc').textContent=all.filter(function(p){return p.canal==='pauta';}).length;
+  document.getElementById('st-ev').textContent=all.filter(function(p){return p.canal==='tiktok';}).length;
   document.getElementById('st-ig').textContent=all.filter(function(p){return p.canal==='ig'||p.canal==='ambos';}).length;
   document.getElementById('st-fb').textContent=all.filter(function(p){return p.canal==='fb'||p.canal==='ambos';}).length;
   document.getElementById('badge-count').textContent=all.length;
@@ -684,8 +695,8 @@ function renderList(){
   el.innerHTML=sorted.map(function(p){
     var s=p.data.split('-');
     var col=SCOL[p.sec]||'#8892a4';
-    var isEv=p.canal==='evento';
-    var cL=isEv?'Evento':p.canal==='ambos'?'IG + FB':p.canal==='ig'?'Instagram':'Facebook';
+    var isEv=p.canal==='pauta';
+    var cL=p.canal==='pauta'?'Pauta':p.canal==='tiktok'?'TikTok':p.canal==='ambos'?'IG + FB':p.canal==='ig'?'Instagram':'Facebook';
     var diaSem=dow(p.data);
     var isPast=p.data<todayStr;
     return'<div class="list-card'+(isPast?' past':'')+'" onclick="editPost('+p.id+')">'+
@@ -697,7 +708,7 @@ function renderList(){
           '<span class="utag sec">'+p.sec+'</span>'+
           '<span class="utag sec">'+p.hora+'</span>'+
           (p.equipe?'<span class="utag sec">'+p.equipe+'</span>':'')+
-          (isEv?'<span class="tipo-ev">Operacional</span>':'<span class="tipo-dc">Editorial</span>')+
+          (p.canal==='pauta'?'<span class="tipo-ev">Pauta</span>':p.canal==='tiktok'?'<span class="tipo-tt">TikTok</span>':'<span class="tipo-dc">Editorial</span>')+
         '</div>'+
         (p.copy?'<div class="lcopy">'+p.copy+'</div>':'')+
       '</div>'+
@@ -713,8 +724,7 @@ function renderUpcoming(){
   if(!up.length){document.getElementById('upcoming').innerHTML='<div style="color:var(--text2);font-size:10px;padding:4px 0">Nenhuma pauta próxima.</div>';return;}
   document.getElementById('upcoming').innerHTML=up.map(function(p){
     var s=p.data.split('-');
-    var isEv=p.canal==='evento';
-    var cL=isEv?'Evento':p.canal==='ambos'?'IG+FB':p.canal==='ig'?'IG':'FB';
+    var cL=p.canal==='pauta'?'Pauta':p.canal==='tiktok'?'TikTok':p.canal==='ambos'?'IG+FB':p.canal==='ig'?'IG':'FB';
     return'<div class="up-item">'+
       '<div class="up-date"><div class="ud">'+parseInt(s[2])+'</div><div class="um">'+M3[parseInt(s[1])-1]+'</div></div>'+
       '<div class="up-body">'+
@@ -788,8 +798,9 @@ function openModal(id){
 function editPost(id){openModal(id);}
 function selCan(c){canVal=c;updateCanUI();}
 function updateCanUI(){
-  ['ig','fb','ambos','evento'].forEach(function(c){
+  ['ig','fb','ambos','pauta','tiktok'].forEach(function(c){
     var el=document.getElementById('ct-'+c);
+    if(!el)return;
     el.className='ctog'+(c===canVal?' active-'+c:'');
   });
 }
