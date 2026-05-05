@@ -679,6 +679,7 @@ function renderList(){
   var el=document.getElementById('view-list');
   var sorted=fpM().sort(function(a,b){return a.data.localeCompare(b.data)||a.hora.localeCompare(b.hora);});
   if(!sorted.length){el.innerHTML='<div style="text-align:center;padding:2rem;color:var(--text2);font-size:12px">Nenhuma pauta neste mês.</div>';return;}
+  var t=td();
   var todayStr=t.y+'-'+String(t.m+1).padStart(2,'0')+'-'+String(t.d).padStart(2,'0');
   el.innerHTML=sorted.map(function(p){
     var s=p.data.split('-');
