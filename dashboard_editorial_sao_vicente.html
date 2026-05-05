@@ -156,6 +156,10 @@ html,body{height:100%;background:var(--bg0);color:var(--text1);font-family:var(-
 .ctog.active-ambos{border-color:var(--amb-border);color:var(--amb);background:var(--amb-bg)}
 .ctog.active-pauta{border-color:var(--ev-border);color:var(--ev);background:var(--ev-bg)}
 .ctog.active-tiktok{border-color:var(--tt-border);color:var(--tt);background:var(--tt-bg)}
+.search-wrap{padding:8px 10px;border-bottom:1px solid var(--border)}
+.search-input{width:100%;background:var(--bg2);border:1px solid var(--border2);border-radius:7px;color:var(--text1);font-size:11px;padding:6px 9px;outline:none;font-family:var(--font)}
+.search-input:focus{border-color:var(--orange)}
+.search-input::placeholder{color:var(--text3)}
 .mfooter{display:flex;justify-content:flex-end;gap:5px;margin-top:12px;padding-top:10px;border-top:1px solid var(--border)}
 .mbtn{padding:6px 14px;border-radius:6px;border:1px solid var(--border2);background:transparent;color:var(--text2);font-size:11px;cursor:pointer;font-family:var(--font)}
 .mbtn:hover{color:var(--text1);background:var(--bg2)}
@@ -285,10 +289,13 @@ html,body{height:100%;background:var(--bg0);color:var(--text1);font-family:var(-
     </div>
   </div>
   <div class="sidebar-tabs">
-    <div class="stab active">Social</div>
-    <div class="stab">Eventos</div>
+    <div class="stab active" id="stab-social" onclick="setSideTab('social')">Social</div>
+    <div class="stab" id="stab-pautas" onclick="setSideTab('pautas')">Pautas</div>
   </div>
-  <div class="nav">
+  <div class="search-wrap">
+    <input class="search-input" id="search-input" type="text" placeholder="🔍 Buscar pauta..." oninput="setSearch(this.value)"/>
+  </div>
+  <div class="nav" id="nav-social">
     <div class="nav-item active" onclick="setView('cal')">
       <svg class="nav-icon" viewBox="0 0 15 15" fill="none"><rect x="1.5" y="1.5" width="5" height="5" rx="1" stroke="currentColor" stroke-width="1.3"/><rect x="8.5" y="1.5" width="5" height="5" rx="1" stroke="currentColor" stroke-width="1.3"/><rect x="1.5" y="8.5" width="5" height="5" rx="1" stroke="currentColor" stroke-width="1.3"/><rect x="8.5" y="8.5" width="5" height="5" rx="1" stroke="currentColor" stroke-width="1.3"/></svg>
       Dashboard
@@ -319,6 +326,29 @@ html,body{height:100%;background:var(--bg0);color:var(--text1);font-family:var(-
     <div class="sec-item"><span class="sec-dot" style="background:#fdba74"></span>SECINP</div>
     <div class="sec-item"><span class="sec-dot" style="background:#F5A800"></span>Comunicação</div>
     <div class="sec-item"><span class="sec-dot" style="background:#c084fc"></span>Múltiplas</div>
+  </div>
+  <!-- Aba Pautas -->
+  <div class="nav" id="nav-pautas" style="display:none">
+    <div class="sec-heading">Canais</div>
+    <div class="nav-item" onclick="setChannel('ig',null);setSideTab('pautas')">
+      <span style="width:8px;height:8px;border-radius:50%;background:var(--ig);display:inline-block;flex-shrink:0"></span>Instagram
+    </div>
+    <div class="nav-item" onclick="setChannel('fb',null);setSideTab('pautas')">
+      <span style="width:8px;height:8px;border-radius:50%;background:var(--fb);display:inline-block;flex-shrink:0"></span>Facebook
+    </div>
+    <div class="nav-item" onclick="setChannel('tiktok',null);setSideTab('pautas')">
+      <span style="width:8px;height:8px;border-radius:50%;background:var(--tt);display:inline-block;flex-shrink:0"></span>TikTok
+    </div>
+    <div class="nav-item" onclick="setChannel('ambos',null);setSideTab('pautas')">
+      <span style="width:8px;height:8px;border-radius:50%;background:var(--amb);display:inline-block;flex-shrink:0"></span>IG + FB
+    </div>
+    <div class="nav-item" onclick="setChannel('pauta',null);setSideTab('pautas')">
+      <span style="width:8px;height:8px;border-radius:50%;background:var(--ev);display:inline-block;flex-shrink:0"></span>Pautas
+    </div>
+    <div class="nav-item" onclick="setChannel('all',null);setSideTab('pautas')">
+      <span style="width:8px;height:8px;border-radius:50%;background:var(--orange);display:inline-block;flex-shrink:0"></span>Todos
+    </div>
+    <div id="pauta-list" style="padding:4px 0"></div>
   </div>
   <div class="sidebar-foot">
     <button class="new-btn" onclick="openModal()">+ Nova pauta</button>
@@ -598,17 +628,39 @@ function loadNid(){
 
 var posts=loadPosts();
 var nid=loadNid();
-var cY=2026,cM=4,cView='cal',cCh='all',editId=null,canVal='ambos';
+var cY=2026,cM=4,cView='cal',cCh='all',editId=null,canVal='ambos',searchTerm='';
 
 function td(){var d=new Date();return{y:d.getFullYear(),m:d.getMonth(),d:d.getDate()};}
 function fp(){
-  if(cCh==='all')return posts;
-  if(cCh==='pauta')return posts.filter(function(p){return p.canal==='pauta';});
-  if(cCh==='tiktok')return posts.filter(function(p){return p.canal==='tiktok';});
-  return posts.filter(function(p){return p.canal===cCh||p.canal==='ambos';});
+  var base;
+  if(cCh==='all')base=posts;
+  else if(cCh==='pauta')base=posts.filter(function(p){return p.canal==='pauta';});
+  else if(cCh==='tiktok')base=posts.filter(function(p){return p.canal==='tiktok';});
+  else base=posts.filter(function(p){return p.canal===cCh||p.canal==='ambos';});
+  if(!searchTerm)return base;
+  return base.filter(function(p){
+    return p.titulo.toLowerCase().indexOf(searchTerm)>-1||
+           (p.sec&&p.sec.toLowerCase().indexOf(searchTerm)>-1)||
+           (p.copy&&p.copy.toLowerCase().indexOf(searchTerm)>-1)||
+           (p.equipe&&p.equipe.toLowerCase().indexOf(searchTerm)>-1);
+  });
 }
 function fpM(){return fp().filter(function(p){var s=p.data.split('-');return parseInt(s[0])===cY&&parseInt(s[1])-1===cM;});}
 function forDay(d){return fp().filter(function(p){var s=p.data.split('-');return parseInt(s[0])===cY&&parseInt(s[1])-1===cM&&parseInt(s[2])===d;});}
+
+function setSideTab(tab){
+  var isSocial=tab==='social';
+  document.getElementById('stab-social').classList.toggle('active',isSocial);
+  document.getElementById('stab-pautas').classList.toggle('active',!isSocial);
+  document.getElementById('nav-social').style.display=isSocial?'':'none';
+  document.getElementById('nav-pautas').style.display=isSocial?'none':'';
+  if(isSocial){setChannel('all',null);}
+}
+
+function setSearch(val){
+  searchTerm=val.trim().toLowerCase();
+  render();
+}
 
 function toggleSidebar(){
   var sb=document.querySelector('.sidebar');
