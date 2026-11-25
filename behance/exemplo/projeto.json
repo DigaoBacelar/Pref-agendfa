@@ -1,0 +1,10 @@
+{
+  "title": "Marca Exemplo | Identidade Visual",
+  "description": "Desafio, solução e resultado do projeto.",
+  "tags": ["branding", "logo", "identidade visual"],
+  "fields": ["Branding", "Graphic Design"],
+  "tools": ["Adobe Illustrator", "Adobe Photoshop"],
+  "cover": "a.png",
+  "cover_focus": [0.5, 0.4],
+  "captions": {"a.png": "Logo principal"}
+}
